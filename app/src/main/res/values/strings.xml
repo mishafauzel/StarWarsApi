@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">StarWarsApi</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="birth_year">Birth Year</string>
+    <string name="height">Height</string>
+    <string name="mass">Mass</string>
+    <string name="no_info">No info</string>
+</resources>

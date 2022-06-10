@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_title_size">20sp</dimen>
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="char_field_name">15sp</dimen>
+    <dimen name="char_field_value">20sp</dimen>
+</resources>
