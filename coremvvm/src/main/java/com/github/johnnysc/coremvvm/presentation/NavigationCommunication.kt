@@ -11,4 +11,6 @@ interface NavigationCommunication {
     interface Mutable : Update, Observe
 
     class Base : Communication.SinglePostUpdate<NavigationScreen>(), Mutable
+
+
 }

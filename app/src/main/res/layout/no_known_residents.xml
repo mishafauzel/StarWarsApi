@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.starwarsapi.presentation.planets.adapter.myviews.MyCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="40dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="@dimen/default_margin">
+    <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_known_residents"
+        android:textSize="@dimen/item_title_size"
+        android:textColor="@color/black"
+        android:layout_margin="@dimen/default_margin"
+        />
+
+</com.example.starwarsapi.presentation.planets.adapter.myviews.MyCardView>

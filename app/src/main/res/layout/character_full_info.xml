@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal"
+                android:text="@string/name"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/birth_year"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/birth_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal"
+                android:text="@string/Hair_color"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/hair_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal"
+                android:text="@string/skin_color"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/skin_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal"
+                android:text="@string/gender"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal"
+                android:text="@string/mass"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/mass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal"
+                android:text="@string/height"
+                android:textSize="@dimen/char_field_name"></TextView>
+
+            <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+                android:id="@+id/height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|end"
+                android:text="@string/no_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/char_field_value"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

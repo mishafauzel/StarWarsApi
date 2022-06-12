@@ -6,4 +6,10 @@
     <string name="height">Height</string>
     <string name="mass">Mass</string>
     <string name="no_info">No info</string>
+    <string name="swapi_url">http://swapi.dev/api/planets</string>
+    <string name="no_known_residents">No known residents</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="retry">Retry</string>
+    <string name="Hair_color">Hair color</string>
+    <string name="skin_color">Skin color</string>
 </resources>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.starwarsapi.presentation.planets.adapter.myviews.MyCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/container">
-    <TextView
+    <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Planet name"
         android:textSize="@dimen/item_title_size"
         android:textColor="@color/black"
         android:layout_margin="@dimen/default_margin"
-        android:id="@+id/planet_name"></TextView>
+        android:id="@+id/planet_name"></com.github.johnnysc.coremvvm.presentation.adapter.MyTextView>
 
-</androidx.cardview.widget.CardView>
+</com.example.starwarsapi.presentation.planets.adapter.myviews.MyCardView>

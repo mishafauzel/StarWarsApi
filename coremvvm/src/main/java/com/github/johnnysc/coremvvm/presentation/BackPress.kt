@@ -49,5 +49,6 @@ interface BackPress {
     ) : BaseViewModel<T>(communication, dispatchers), UpdateCallbacks {
 
         override fun removeCallbacks() = canGoBackCallback.updateCallback(CanGoBack.Empty())
+
     }
 }
