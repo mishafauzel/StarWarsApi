@@ -6,32 +6,34 @@ import com.example.starwarsapi.presentation.planets.*
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.Module
 
-class PlanetsAndCharactersModule(private val coreModule: CoreModule,private val dataModule: DataModule) :
+class PlanetsAndCharactersModule(private val coreModule: CoreModule,private val mainNavigationSource: MainNavigationSource,private val mainDataQueueSource: MainDataQueueSource) :
     Module<PlanetsViewModel> {
 
     override fun viewModel(): PlanetsViewModel {
-
+        val listMutator=ListMutator(PlanetsUi.Mapper.Base())
 
         val roomDatabase = coreModule.provideRoomDatabase(AbstractDatabase::class.java)
         val provideServices = ProvideServices.Base(coreModule)
         val planetDependencyProvider =
-            PlanetDependencyProvider.Base(provideServices, roomDatabase, coreModule)
+            PlanetDependencyProvider.Base(provideServices, roomDatabase, coreModule,listMutator)
 
 
-        val navigationCommunication = NavigationCommunication.Base()
+
         val errorComunication=PlanetsErrorComunication.Base()
+
         val planetErrorHandle=PlanetsErrorHandle(errorComunication)
         return PlanetsViewModel(
             coreModule.provideCanGoBack(),
             planetDependencyProvider.providePlanetInteractor(
                 planetDependencyProvider.provideCharacterRepository(),
                 planetDependencyProvider.providePlanetsRepository(),
-                navigationCommunication,
+                mainNavigationSource.provideNavigationComunication(),
                 planetErrorHandle,
-                dataModule.getDataKeeper()
-            ), navigationCommunication,
+                mainDataQueueSource.provideDataQueue()
+            ),
             errorComunication,
             coreModule.provideProgressCommunication(),
+            listMutator,
             PlanetsCommunication.Base(),
             coreModule.dispatchers()
         )

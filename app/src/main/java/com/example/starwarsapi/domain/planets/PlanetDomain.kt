@@ -3,6 +3,7 @@ package com.example.starwarsapi.domain.planets
 import com.example.starwarsapi.domain.planets.smartcontract.PlanetDomainToDomainWithResidence
 import com.example.starwarsapi.domain.planets.smartcontract.PlanetDomainToItemUI
 import com.example.starwarsapi.presentation.planets.CharacterItem
+import com.example.starwarsapi.presentation.planets.ListMutator
 
 interface PlanetDomain {
     suspend fun <T> map(mapper: Mapper<T>): T
@@ -31,8 +32,8 @@ interface PlanetDomain {
         suspend fun map(id: Int, name: String, listOfResidence: List<String>): T
         fun map(id: Int, name: String, listOfResidence: List<CharacterDomain>): T
 
-        class BaseToUI(charMapper: CharacterDomain.Mapper<CharacterItem>) :
-            PlanetDomainToItemUI(charMapper)
+        class BaseToUI(charMapper: CharacterDomain.Mapper<CharacterItem>,private val listMutator: ListMutator) :
+            PlanetDomainToItemUI(charMapper,listMutator)
 
 
         class BaseToPlanetWithResidence(baseCharacterRepository: CharacterRepository) :

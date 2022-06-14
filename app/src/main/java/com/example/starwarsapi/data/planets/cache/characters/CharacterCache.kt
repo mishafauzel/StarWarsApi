@@ -71,7 +71,7 @@ interface CharacterCache:IsDataFull,HasExtraData {
                 mass: String,
                 height: String
             ): CharacterDomain {
-                return CharacterDomain.Base(id,characterName, birthYear)
+                return CharacterDomain.Base(id,characterName, planetId,birthYear)
             }
 
         }

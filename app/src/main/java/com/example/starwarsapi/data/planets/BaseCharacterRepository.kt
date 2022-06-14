@@ -28,7 +28,7 @@ class BaseCharacterRepository(
             if(cache.isEmpty())
             {
                 Log.d("TAg", "selectCharactersByPage:isEmpty ")
-                return listOf(CharacterDomain.Base(-1,"",""))
+                return listOf(CharacterDomain.Base(-1,"",-1,""))
             }
             if (!cache.isFull()) {
                 Log.d("TAg", "selectCharactersByPage:isFull ")

@@ -1,0 +1,37 @@
+package com.example.starwarsapi.sl
+
+import android.util.Log
+import java.lang.NullPointerException
+import java.util.*
+
+private const val TAG = "DataQueue"
+interface DataQueue {
+    interface Update<T>{
+        fun update(data:T)
+    }
+    interface Read<T>
+    {
+        fun read():T
+    }
+    interface Mutable<T>:Update<T>,Read<T>
+
+    class Base:Mutable<Any>
+    {
+        val dataQueue:Queue<Any> =LinkedList()
+        override fun update(data: Any) {
+            Log.d(TAG, "update: $data ")
+            dataQueue.offer(data)
+        }
+
+        override fun read(): Any {
+            val data=dataQueue.poll()
+            if(data==null)
+                throw ThereIsNoDataException()
+            else
+                return data
+
+        }
+        class ThereIsNoDataException():NullPointerException("There is no data in data queue")
+    }
+
+}

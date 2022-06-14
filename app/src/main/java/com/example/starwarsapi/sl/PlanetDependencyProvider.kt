@@ -1,5 +1,6 @@
 package com.example.starwarsapi.sl
 
+import android.util.Log
 import com.example.starwarsapi.data.planets.BaseCharacterRepository
 import com.example.starwarsapi.data.planets.BasePlanetsRepository
 import com.example.starwarsapi.data.planets.UrlIdMapper
@@ -17,26 +18,31 @@ import com.example.starwarsapi.data.planets.cloud.planets.PlanetCloud
 import com.example.starwarsapi.data.planets.cloud.planets.PlanetsCloud
 import com.example.starwarsapi.domain.planets.*
 import com.example.starwarsapi.presentation.DataKeeper
-import com.example.starwarsapi.presentation.planets.NavigationCommunication
+import com.example.starwarsapi.presentation.main.GlobalNavigateCommunication
+import com.example.starwarsapi.presentation.planets.ListMutator
+
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.presentation.HandleUiError
 import com.github.johnnysc.coremvvm.sl.CoreModule
+import java.security.PrivateKey
 
+private const val TAG = "PlanetDependencyProvide"
 interface PlanetDependencyProvider {
     fun provideCharacterRepository(): CharacterRepository
     fun providePlanetsRepository(): PlanetsRepository
     fun providePlanetInteractor(
         characterRepository: CharacterRepository,
         planetsRepository: PlanetsRepository,
-        navigationCommunication: NavigationCommunication.Update,
+        navigationCommunication: GlobalNavigateCommunication.Update,
         handleError: HandleError,
-        dataKeeper: DataKeeper.Mutable<Int>
+        dataKeeper: DataQueue.Base
     ): PlanetsInteractor
 
     class Base(
         private val provideServices: ProvideServices,
         private val roomDatabase: AbstractDatabase,
-        private val core: CoreModule
+        private val core: CoreModule,
+         private val listMutator: ListMutator
     ) : PlanetDependencyProvider {
         private val urlIdMapper = UrlIdMapper.IdConverter()
         val charactersCacheDataSource =
@@ -83,14 +89,15 @@ interface PlanetDependencyProvider {
         override fun providePlanetInteractor(
             characterRepository: CharacterRepository,
             planetsRepository: PlanetsRepository,
-            navigationCommunication: NavigationCommunication.Update,
+            navigationCommunication: GlobalNavigateCommunication.Update,
             handleError: HandleError,
-            dataKeeper: DataKeeper.Mutable<Int>
+            dataKeeper: DataQueue.Base
         ): PlanetsInteractor {
+            Log.d(TAG, "providePlanetInteractor: ${navigationCommunication.hashCode()}")
             return PlanetsInteractor.Base(
                 PlanetsDomain.Mapper.BaseToUI(
                     PlanetDomain.Mapper.BaseToUI(
-                        CharacterDomain.Mapper.Base(navigationCommunication,dataKeeper)
+                        CharacterDomain.Mapper.Base(navigationCommunication, dataQueue = dataKeeper ),listMutator
                     ), PagerDomain.Mapper.Base()
                 ),
                 planetsRepository,

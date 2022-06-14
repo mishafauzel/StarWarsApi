@@ -7,9 +7,9 @@ import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 class CharactersViewHolder(view: View): GenericViewHolder<ItemUi>(view) {
     override fun bind(item: ItemUi) {
-        with(item)
+        with(itemView)
         {
-            this.show(itemView.findViewById(R.id.name),itemView.findViewById(R.id.birth_year),itemView.findViewById(R.id.container))
+            item.show(findViewById(R.id.name),findViewById(R.id.birth_year),findViewById(R.id.container))
 
         }
     }

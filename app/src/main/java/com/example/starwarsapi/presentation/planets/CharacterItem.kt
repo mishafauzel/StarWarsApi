@@ -3,14 +3,19 @@ package com.example.starwarsapi.presentation.planets
 import com.example.starwarsapi.presentation.DataKeeper
 import com.example.starwarsapi.presentation.character.CharacterFullInfoScreen
 import com.example.starwarsapi.presentation.character.MyShowStrategyp
+import com.example.starwarsapi.presentation.main.GlobalNavigateCommunication
+import com.example.starwarsapi.sl.DataQueue
+import com.github.johnnysc.coremvvm.presentation.NavigationCommunication
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
 class CharacterItem(
     private val id: Int,
+    private val planetId: Int,
     private val characterName: String,
-    private val birthYear: String, private val navigationCommunication: NavigationCommunication.Update,
-    private val dataKeeper: DataKeeper.Write<Int>
+    private val birthYear: String,
+    private val navigationCommunication: GlobalNavigateCommunication.Update,
+    private val dataQueue: DataQueue.Update<Any>
 ) : ItemUi {
     override fun type(): Int {
         if (id == -1)
@@ -19,11 +24,13 @@ class CharacterItem(
     }
 
     override fun show(vararg views: MyView) {
-        views[0].show(characterName)
-        views[1].show(birthYear)
-        views[2].handleClick {
-            navigationCommunication.map(2)
-            dataKeeper.write(id)
+        if(id!=-1) {
+            views[0].show(characterName)
+            views[1].show(birthYear)
+            views[2].handleClick {
+                navigationCommunication.map(2)
+                dataQueue.update(id)
+            }
         }
     }
 

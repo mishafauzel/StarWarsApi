@@ -1,20 +1,16 @@
-package com.example.starwarsapi.presentation.planets
+package com.example.starwarsapi.presentation.main
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import com.github.johnnysc.coremvvm.presentation.Communication
+import com.github.johnnysc.coremvvm.presentation.NavigationCommunication
 import com.github.johnnysc.coremvvm.presentation.NavigationScreen
 
-
-interface NavigationCommunication {
+interface GlobalNavigateCommunication {
     interface Update : Communication.Update<Int>
 
     interface Observe : Communication.Observe<Int>
 
     interface Mutable : Update, Observe
 
-    class Base :
-        Communication.SinglePostUpdate<Int>(),
-        Mutable
+    class Base : Communication.SingleUiUpdate<Int>(), Mutable
 
 }

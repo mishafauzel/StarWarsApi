@@ -33,9 +33,7 @@ class PlanetsFragment : BackPress.Fragment<PlanetsUi, PlanetsViewModel>() {
             viewModel.addSomethingWentWrong()
         }
 
-        viewModel.observeNavigation(this) {
-            (requireActivity() as MainActivity).navigate(it)
-        }
+
 
 
     }

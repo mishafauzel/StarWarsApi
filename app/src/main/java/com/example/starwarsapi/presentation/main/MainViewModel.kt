@@ -1,5 +1,6 @@
 package com.example.starwarsapi.presentation.main
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.starwarsapi.presentation.character.CharacterFullInfoScreen
@@ -9,10 +10,12 @@ import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.*
 import java.security.acl.Owner
 
+private const val TAG = "MainViewModel"
 class MainViewModel(
     canGoBack: CanGoBack,
     private val navigationCommunication: NavigationCommunication.Mutable,
     private val progressCommunication: ProgressCommunication.Mutable,
+    private val globalNavigateCommunication: GlobalNavigateCommunication.Observe,
     dispatchers: Dispatchers,
     communication: GlobalErrorCommunication.Mutable
 ) : BackPress.Activity.ViewModel<String>(
@@ -26,6 +29,12 @@ class MainViewModel(
 
     init {
         navigate(1)
+    }
+
+    fun observeGlobalNavigationCommunication(owner: LifecycleOwner, observer: Observer<Int>)
+    {
+        Log.d(TAG, "observeGlobalNavigationCommunication: ")
+        globalNavigateCommunication.observe(owner, observer)
     }
 
     fun observeNavigation(owner: LifecycleOwner, observer: Observer<NavigationScreen>) {

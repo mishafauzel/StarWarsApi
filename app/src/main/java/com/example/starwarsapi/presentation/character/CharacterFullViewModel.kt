@@ -22,7 +22,7 @@ class CharacterFullViewModel(canGoBackCallback: CanGoBack.Callback,
                              private val errorCommunication: CharacterFullInfoErrorCommunication.Observe,
                              communication: CharacterFullComunication,
                              dispatchers: Dispatchers,
-                             private val dataKeeper: DataKeeper.Read<Int>
+                             private val idOfCharacter: Int
 ):BackPress.ViewModel<CharacterFullUI>(canGoBackCallback,communication,dispatchers),Retry {
 
     private val atFinish = {
@@ -36,11 +36,11 @@ class CharacterFullViewModel(canGoBackCallback: CanGoBack.Callback,
         override fun canGoBack() = canGoBack
     }
     init {
-        Log.d("TAG", "dataKeeper:${dataKeeper.read()} ")
+        Log.d("TAG", "dataKeeper:${idOfCharacter} ")
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-            interactor.getListOfPlanetsByPage(dataKeeper.read(),atFinish) {
+            interactor.getListOfPlanetsByPage(idOfCharacter,atFinish) {
                 communication.map(it) }
         }
     }
@@ -62,7 +62,7 @@ class CharacterFullViewModel(canGoBackCallback: CanGoBack.Callback,
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-            interactor.getListOfPlanetsByPage(dataKeeper.read(),atFinish) {
+            interactor.getListOfPlanetsByPage(idOfCharacter,atFinish) {
                 communication.map(it) }
         }
     }

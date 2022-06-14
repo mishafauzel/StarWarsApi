@@ -11,11 +11,16 @@ import com.github.johnnysc.coremvvm.sl.ViewModelsFactory
 
 class App:Application(),ProvideViewModel {
     private lateinit var viewModelsFactory: ViewModelsFactory
+    private lateinit var mainNavigationSource: MainNavigationSource
+    private lateinit var mainDataQueueSource: MainDataQueueSource
     override fun onCreate() {
         super.onCreate()
+        mainDataQueueSource= MainDataQueueSource()
+        mainNavigationSource=MainNavigationSource()
         val coreModule = CoreModule.Base(this)
-        val main=MainDependencyContainer(DependencyContainer.Error(),coreModule)
-        viewModelsFactory=ViewModelsFactory(FeatureDependencyContainer(coreModule,main,DataModule()))
+        val main=MainDependencyContainer(DependencyContainer.Error(),coreModule,mainNavigationSource)
+        val mainModule=MainModule(coreModule,mainNavigationSource)
+        viewModelsFactory=ViewModelsFactory(FeatureDependencyContainer(coreModule,main,mainNavigationSource,mainDataQueueSource))
 
     }
 
