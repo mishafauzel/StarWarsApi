@@ -17,4 +17,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "StarWarsApi"
 include ':app'
-include ':coremvvm'

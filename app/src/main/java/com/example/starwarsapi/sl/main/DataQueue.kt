@@ -4,7 +4,7 @@ import android.util.Log
 import java.lang.NullPointerException
 import java.util.*
 
-private const val TAG = "DataQueue"
+
 interface DataQueue {
     interface Update<T>{
         fun update(data:T)
@@ -19,7 +19,6 @@ interface DataQueue {
     {
         val dataQueue:Queue<Any> =LinkedList()
         override fun update(data: Any) {
-            Log.d(TAG, "update: $data ")
             dataQueue.offer(data)
         }
 

@@ -8,7 +8,7 @@ import com.example.starwarsapi.presentation.planets.nav_screen.PlanetNavigationS
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.*
 
-private const val TAG = "MainViewModel"
+
 class MainViewModel(
     canGoBack: CanGoBack,
     private val navigationCommunication: NavigationCommunication.Mutable,
@@ -31,7 +31,6 @@ class MainViewModel(
 
     fun observeGlobalNavigationCommunication(owner: LifecycleOwner, observer: Observer<Int>)
     {
-        Log.d(TAG, "observeGlobalNavigationCommunication: ")
         globalNavigateCommunication.observe(owner, observer)
     }
 

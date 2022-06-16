@@ -27,11 +27,11 @@ class BaseCharacterRepository(
             val cache = charactersCacheDataSource.read(planetId)
             if(cache.isEmpty())
             {
-                Log.d("TAg", "selectCharactersByPage:isEmpty ")
+
                 return listOf(CharacterDomain.Base(-1,"",-1,""))
             }
             if (!cache.isFull()) {
-                Log.d("TAg", "selectCharactersByPage:isFull ")
+
                 val listOfUrl=cache.map(charactersCacheToListUrlMapper)
                 val mapper = charactersCloudMapperFac.create(planetId)
 

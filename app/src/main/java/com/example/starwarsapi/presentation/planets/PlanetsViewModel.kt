@@ -16,7 +16,7 @@ import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.*
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
-private const val TAG = "PlanetsViewModel"
+
 class PlanetsViewModel(canGoBackCallback: CanGoBack.Callback,
                        private val interactor: PlanetsInteractor,
                        private val planetsErrorCommunication: PlanetsErrorComunication.Observe,
@@ -58,7 +58,6 @@ class PlanetsViewModel(canGoBackCallback: CanGoBack.Callback,
     }
     fun addSomethingWentWrong()
     {
-        Log.d(TAG, "addSomethingWentWrong: ")
         communication.map(PlanetsUi.Base(planetUI = listOf(SomethingWentWrongItem(retry = this))))
     }
 
@@ -83,7 +82,6 @@ class PlanetsViewModel(canGoBackCallback: CanGoBack.Callback,
     }
 
     override fun retry() {
-        Log.d(TAG, "retry: $currentPageData")
       getInfoNextPage(currentPageData)
     }
 

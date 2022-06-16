@@ -2,15 +2,12 @@ package com.example.starwarsapi.data.planets
 
 import android.util.Log
 
-private const val TAG = "UrlIdMapper"
+
 interface UrlIdMapper {
     fun convertToInt(url:String):Int
     fun convertToUrl(id:Int,baseUrl: String):String
    object IdConverter: UrlIdMapper
    {
-       //"https://swapi.dev/api/planets/1/"
-       //"https://swapi.dev/api/people/2/"
-       //"https://swapi.dev/api/planets/?page=2
        override fun convertToInt(url: String): Int {
            val urlParts=url.split("/")
 
@@ -29,7 +26,7 @@ interface UrlIdMapper {
         private val baseUrl="https://swapi.dev/api/planets/?page="
         //"https://swapi.dev/api/planets/?page=2
         override fun convertToInt(url: String): Int {
-            Log.d(TAG, "convertToInt: $url")
+
             try {
                 val result=url.removePrefix(baseUrl)
                 return result.toInt()

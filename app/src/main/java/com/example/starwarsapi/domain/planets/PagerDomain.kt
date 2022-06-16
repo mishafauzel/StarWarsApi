@@ -5,14 +5,12 @@ import com.example.starwarsapi.presentation.planets.base_communications.NextPage
 import com.example.starwarsapi.presentation.planets.basedata.PagerData
 import com.example.starwarsapi.presentation.planets.items.PagerItem
 
-private const val TAG = "PagerDomain"
+
 interface PagerDomain {
     fun<T> map(mapper: Mapper<T>):T
 
     data class Base(private val currentPageInt:Int,private val nextPageInt: Int): PagerDomain {
-        init {
-            Log.d(TAG, ": $nextPageInt")
-        }
+
         override fun <T> map(mapper: Mapper<T>): T {
             return mapper.map(currentPageInt,nextPageInt)
         }

@@ -12,7 +12,7 @@ import com.example.starwarsapi.presentation.planets.items.PagerItem
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import kotlin.math.log
 
-private const val TAG = "ListMutator"
+
 class ListMutator(
 
     private val mapperPlanUiToList: PlanetsUi.Mapper<List<ItemUi>>,
@@ -22,14 +22,10 @@ class ListMutator(
     private val listOfClosedPlanetsID: MutableList<Int> = mutableListOf()
 
     override fun transform(from: PlanetsUi): PlanetsUi {
-        Log.d(TAG, "transform1: $from")
         val listFromPlanetsUi = from.map(mapperPlanUiToList)
-        Log.d(TAG, "transform2: $listFromPlanetsUi")
         filterSomeWentWrongAndPagersItems(totalList)
         totalList.addAll(listFromPlanetsUi)
-        Log.d(TAG, "transform: 4$totalList")
         val result = filterTotalList()
-        Log.d(TAG, "transform: $result")
         return  PlanetsUi.Base(result)
     }
 
@@ -63,7 +59,6 @@ class ListMutator(
             }
 
         }
-        Log.d(TAG, "filterTotalList: ${result.size}")
         return result.toList()
     }
 

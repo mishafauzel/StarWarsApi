@@ -7,7 +7,7 @@ import com.github.johnnysc.coremvvm.presentation.NavigationCommunication
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.Module
 
-private const val TAG = "MainModule"
+
 class MainModule(private val coreModule: CoreModule,private val mainNavigationSource: MainNavigationSource):Module<MainViewModel> {
 
 

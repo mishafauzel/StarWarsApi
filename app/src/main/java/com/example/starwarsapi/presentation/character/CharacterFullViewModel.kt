@@ -33,7 +33,6 @@ class CharacterFullViewModel(canGoBackCallback: CanGoBack.Callback,
         override fun canGoBack() = canGoBack
     }
     init {
-        Log.d("TAG", "dataKeeper:${idOfCharacter} ")
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {

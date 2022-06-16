@@ -25,7 +25,7 @@ interface CharacterInteractor {
             successful: (CharacterFullUI) -> Unit
         ) =handle(successful=successful,atFinish=atFinish){
             val result=characterFullIInfoRepository.getFullInfoAboutCharacter(id)
-            Log.d("tag", "getListOfPlanetsByPage: $result")
+
             return@handle result
         }
 

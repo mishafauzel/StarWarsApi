@@ -10,7 +10,7 @@ import com.example.starwarsapi.presentation.planets.adapter.PlanetsAdapter
 import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.presentation.BackPress
 
-private const val TAG = "PlanetsFragment"
+
 class PlanetsFragment : BackPress.Fragment<PlanetsUi, PlanetsViewModel>() {
     override fun viewModelClass() = PlanetsViewModel::class.java
 
@@ -34,7 +34,6 @@ class PlanetsFragment : BackPress.Fragment<PlanetsUi, PlanetsViewModel>() {
             viewModel.addSomethingWentWrong()
         }
         viewModel.observeNextPageCommunication(this){pageNumber->
-            Log.d(TAG, "onViewCreated: $pageNumber")
             viewModel.getInfoNextPage(pageNumber)
 
         }

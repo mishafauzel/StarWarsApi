@@ -8,7 +8,7 @@ import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.Interactor
 
-private const val TAG = "PlanetsInteractor"
+
 interface PlanetsInteractor {
     suspend fun getListOfPlanetsByPage(
         pageNumber: Int, atFinish: () -> Unit,
@@ -28,10 +28,9 @@ interface PlanetsInteractor {
             atFinish: () -> Unit,
             successful:(Pair<PlanetsUi,PagerData>) -> Unit
         ) = handle(successful, atFinish) {
-            Log.d(TAG, "getListOfPlanetsByPage: $pageNumber")
             val data = repository.selectPlanetsByPage(pageNumber)
             val dataWithResidence=data.map(mapperDomainToDomainWithResidence)
-            Log.d(TAG, "getListOfPlanetsByPage: $dataWithResidence")
+
             return@handle Pair(dataWithResidence.map(mapper),dataWithResidence.map(mapperDomainToPagerItem))
 
         }

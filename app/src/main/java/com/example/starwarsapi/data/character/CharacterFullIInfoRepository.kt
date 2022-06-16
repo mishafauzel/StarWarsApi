@@ -21,10 +21,10 @@ interface CharacterFullIInfoRepository {
                     return character.map(characterCacheToCharacterFullUIMapper)
                 } else {
                     val characterCloud = characterService.getCharacterById(id.toString())
-                    Log.d("Tag", "getFullInfoAboutCharacter:$characterCloud ")
+
                     val charCache = characterCloud.map(characterCloudToCharacterFullCacheMapper)
                     characterCacheDataSource.save(charCache)
-                    Log.d("Tag", "getFullInfoAboutCharacter:$charCache ")
+
                     return charCache.map(characterCacheToCharacterFullUIMapper)
                 }
             }

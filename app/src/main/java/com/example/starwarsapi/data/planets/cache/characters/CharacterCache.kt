@@ -47,7 +47,7 @@ interface CharacterCache:IsDataFull,HasExtraData {
         }
 
         override fun hasExtraData(): Boolean {
-            Log.d("TAg", "hasExtraData:$mass ${mass.isNotEmpty()} ")
+
             return mass.isNotEmpty()
         }
 

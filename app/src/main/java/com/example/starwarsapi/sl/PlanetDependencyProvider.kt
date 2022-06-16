@@ -25,7 +25,7 @@ import com.example.starwarsapi.sl.main.DataQueue
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.sl.CoreModule
 
-private const val TAG = "PlanetDependencyProvide"
+
 
 interface PlanetDependencyProvider {
     fun provideCharacterRepository(): CharacterRepository
@@ -94,7 +94,6 @@ interface PlanetDependencyProvider {
             handleError: HandleError,
             dataKeeper: DataQueue.Base
         ): PlanetsInteractor {
-            Log.d(TAG, "providePlanetInteractor: ${navigationCommunication.hashCode()}")
             return PlanetsInteractor.Base(
                 PlanetsDomain.Mapper.BaseToUI(
                     PlanetDomain.Mapper.BaseToUI(
