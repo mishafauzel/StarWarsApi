@@ -7,6 +7,5 @@ import com.github.johnnysc.coremvvm.presentation.ShowStrategy
 class PlanetNavigationScreen(showStrategy: ShowStrategy = ShowStrategy.REPLACE) :
     NavigationScreen(
         "PlanetsFragment",
-        PlanetsFragment::class.java
-        ,showStrategy
+        PlanetsFragment::class.java, showStrategy
     )

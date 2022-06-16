@@ -8,7 +8,10 @@ import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.Module
 
 
-class MainModule(private val coreModule: CoreModule,private val mainNavigationSource: MainNavigationSource):Module<MainViewModel> {
+class MainModule(
+    private val coreModule: CoreModule,
+    private val mainNavigationSource: MainNavigationSource
+) : Module<MainViewModel> {
 
 
     override fun viewModel(): MainViewModel {

@@ -8,37 +8,34 @@ import com.example.starwarsapi.domain.planets.PagerDomain
 import com.example.starwarsapi.domain.planets.PlanetDomain
 
 interface PlanetCache {
-    fun <T> map(mapper: Mapper<T>):T
+    fun <T> map(mapper: Mapper<T>): T
 
 
     @Entity(tableName = "planet_table")
     data class Base(
         @PrimaryKey(autoGenerate = false)
         @ColumnInfo(name = "id")
-         val id: Int,
+        val id: Int,
         @ColumnInfo(name = "name")
-         val name: String,
-        @ColumnInfo(name="page_id")
-         val pageId:Int,
-        @ColumnInfo(name="next_page_id")
-         val nextPageId:Int=-1,
+        val name: String,
+        @ColumnInfo(name = "page_id")
+        val pageId: Int,
+        @ColumnInfo(name = "next_page_id")
+        val nextPageId: Int = -1,
 
 
-
-        ): PlanetCache
-    {
+        ) : PlanetCache {
         override fun <T> map(mapper: Mapper<T>): T {
-            return mapper.map(id,name,pageId, nextPageId)
+            return mapper.map(id, name, pageId, nextPageId)
         }
 
     }
-    interface Mapper<T>
-    {
-        fun map(id:Int, name:String, pageId:Int, nextPageId: Int):T
 
-        class BaseToPagerDomain(): Mapper<PagerDomain>
-        {
-            private val baseString="https://swapi.dev/api/planets/?page="
+    interface Mapper<T> {
+        fun map(id: Int, name: String, pageId: Int, nextPageId: Int): T
+
+        class BaseToPagerDomain() : Mapper<PagerDomain> {
+            private val baseString = "https://swapi.dev/api/planets/?page="
             override fun map(
                 id: Int,
                 name: String,
@@ -48,15 +45,15 @@ interface PlanetCache {
                 return PagerDomain.Base(pageId, nextPageid)
             }
         }
-        class BaseToPlanetDomain(): Mapper<PlanetDomain>
-        {
+
+        class BaseToPlanetDomain() : Mapper<PlanetDomain> {
             override fun map(
                 id: Int,
                 name: String,
                 pageId: Int,
                 nextPageId: Int
             ): PlanetDomain {
-                return PlanetDomain.Base(id,name, emptyList())
+                return PlanetDomain.Base(id, name, emptyList())
             }
         }
     }

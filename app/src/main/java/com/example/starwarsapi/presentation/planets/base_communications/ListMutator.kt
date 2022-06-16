@@ -26,7 +26,7 @@ class ListMutator(
         filterSomeWentWrongAndPagersItems(totalList)
         totalList.addAll(listFromPlanetsUi)
         val result = filterTotalList()
-        return  PlanetsUi.Base(result)
+        return PlanetsUi.Base(result)
     }
 
     fun changeIdList(id: Int) {
@@ -42,7 +42,7 @@ class ListMutator(
     fun filterTotalList(): List<ItemUi> {
         val result = mutableListOf<ItemUi>()
         var isClosed = false
-        for(item in totalList){
+        for (item in totalList) {
             if (item is PlanetItem) {
                 isClosed = item.checkIsExistsInList(listOfClosedPlanetsID)
                 result.add(item)
@@ -62,10 +62,9 @@ class ListMutator(
         return result.toList()
     }
 
-    fun filterSomeWentWrongAndPagersItems(list:MutableList<ItemUi>):MutableList<ItemUi>
-    {
-        val deletingList=list.filter {itemUi ->
-            itemUi is SomethingWentWrongItem||itemUi is PagerItem
+    fun filterSomeWentWrongAndPagersItems(list: MutableList<ItemUi>): MutableList<ItemUi> {
+        val deletingList = list.filter { itemUi ->
+            itemUi is SomethingWentWrongItem || itemUi is PagerItem
 
         }
         list.removeAll(deletingList)

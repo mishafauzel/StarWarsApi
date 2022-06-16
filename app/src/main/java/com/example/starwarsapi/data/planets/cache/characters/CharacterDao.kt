@@ -8,11 +8,14 @@ import androidx.room.Query
 @Dao
 interface CharacterDao {
     @Query("SELECT * FROM character_table WHERE planet_id=:planetId")
-    fun selectCharByPlanetId(planetId:Int):List<CharacterCache.Base>
+    fun selectCharByPlanetId(planetId: Int): List<CharacterCache.Base>
+
     @Query("SELECT * FROM character_table WHERE id=:id")
-    fun selectCharById(id:Int):CharacterCache.Base
+    fun selectCharById(id: Int): CharacterCache.Base
+
     @Insert(onConflict = REPLACE)
     fun insertListOfCharacters(list: List<CharacterCache.Base>)
+
     @Insert(onConflict = REPLACE)
     fun insertCharacter(characterCache: CharacterCache.Base)
 

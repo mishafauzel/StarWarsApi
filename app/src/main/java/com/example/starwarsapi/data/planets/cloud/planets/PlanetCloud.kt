@@ -31,7 +31,7 @@ interface PlanetCloud {
             private val curPage: Int,
             private val nextPageUrl: String,
 
-        ) :
+            ) :
             Mapper<PlanetCache> {
             override fun map(
                 name: String,
@@ -48,13 +48,12 @@ interface PlanetCloud {
 
 
         }
-        interface Factory<T>
-        {
-            fun create(curPage: Int,nextPageUrl: String):Mapper<T>
-            class Base():Factory<PlanetCache>
-            {
+
+        interface Factory<T> {
+            fun create(curPage: Int, nextPageUrl: String): Mapper<T>
+            class Base() : Factory<PlanetCache> {
                 override fun create(curPage: Int, nextPageUrl: String): Mapper<PlanetCache> {
-                    return MapperToCache(curPage,nextPageUrl)
+                    return MapperToCache(curPage, nextPageUrl)
                 }
             }
         }
@@ -75,7 +74,6 @@ interface PlanetCloud {
                 }
             }
         }
-
 
 
     }

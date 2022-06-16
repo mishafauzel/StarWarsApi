@@ -21,7 +21,7 @@ data class CharacterItem(
     }
 
     override fun show(vararg views: MyView) {
-        if(id!=-1) {
+        if (id != -1) {
             views[0].show(characterName)
             views[1].show(birthYear)
             views[2].handleClick {

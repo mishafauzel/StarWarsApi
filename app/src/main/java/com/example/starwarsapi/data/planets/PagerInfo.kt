@@ -26,7 +26,8 @@ interface PagerInfo {
             override fun map(currentPageId: Int, nextPageId: Int): Pair<Int, Int> {
                 return Pair(
                     currentPageId,
-                    nextPageId)
+                    nextPageId
+                )
             }
         }
     }

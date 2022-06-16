@@ -26,7 +26,6 @@ import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.sl.CoreModule
 
 
-
 interface PlanetDependencyProvider {
     fun provideCharacterRepository(): CharacterRepository
     fun providePlanetsRepository(): PlanetsRepository
@@ -106,7 +105,7 @@ interface PlanetDependencyProvider {
                 planetsRepository,
                 PlanetsDomain.Mapper.BaseToWithResidence(
                     PlanetDomain.Mapper.BaseToPlanetWithResidence(characterRepository)
-                ),PlanetsDomain.Mapper.BaseToPagerData(PagerDomain.Mapper.BaseToPlanetsPager()),
+                ), PlanetsDomain.Mapper.BaseToPagerData(PagerDomain.Mapper.BaseToPlanetsPager()),
                 core.dispatchers(), handleError
             )
         }

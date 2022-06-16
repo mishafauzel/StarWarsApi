@@ -30,15 +30,13 @@ class PlanetsFragment : BackPress.Fragment<PlanetsUi, PlanetsViewModel>() {
             planetsUI.map(planetsAdapter)
 
         }
-        viewModel.observeException(this){
+        viewModel.observeException(this) {
             viewModel.addSomethingWentWrong()
         }
-        viewModel.observeNextPageCommunication(this){pageNumber->
+        viewModel.observeNextPageCommunication(this) { pageNumber ->
             viewModel.getInfoNextPage(pageNumber)
 
         }
-
-
 
 
     }

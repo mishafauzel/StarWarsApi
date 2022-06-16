@@ -4,9 +4,9 @@ import com.example.starwarsapi.core.IsDataFull
 import com.example.starwarsapi.core.IsEmpty
 import com.example.starwarsapi.domain.planets.CharacterDomain
 
-interface CharactersCache:IsEmpty,IsDataFull {
-    fun <T>map(mapper: Mapper<T>):T
-    class Base(private val list: List<CharacterCache>): CharactersCache {
+interface CharactersCache : IsEmpty, IsDataFull {
+    fun <T> map(mapper: Mapper<T>): T
+    class Base(private val list: List<CharacterCache>) : CharactersCache {
         override fun <T> map(mapper: Mapper<T>): T {
             return mapper.map(list)
         }
@@ -20,18 +20,16 @@ interface CharactersCache:IsEmpty,IsDataFull {
         }
     }
 
-    interface Mapper<T>
-    {
-        fun map(list: List<CharacterCache>):T
-        class BaseToList(): Mapper<List<CharacterCache>>
-        {
+    interface Mapper<T> {
+        fun map(list: List<CharacterCache>): T
+        class BaseToList() : Mapper<List<CharacterCache>> {
             override fun map(list: List<CharacterCache>): List<CharacterCache> {
                 return list
             }
         }
-        class BaseToListCharactersDomain(private val mapper: CharacterCache.Mapper<CharacterDomain>):
-            Mapper<List<CharacterDomain>>
-        {
+
+        class BaseToListCharactersDomain(private val mapper: CharacterCache.Mapper<CharacterDomain>) :
+            Mapper<List<CharacterDomain>> {
             override fun map(list: List<CharacterCache>): List<CharacterDomain> {
                 return list.map {
                     it.map(mapper)
@@ -39,12 +37,12 @@ interface CharactersCache:IsEmpty,IsDataFull {
             }
 
         }
-        class BaseToListOfIds(private val characterToUrlMapper: CharacterCache.Mapper<String>):
-            Mapper<List<String>>
-        {
+
+        class BaseToListOfIds(private val characterToUrlMapper: CharacterCache.Mapper<String>) :
+            Mapper<List<String>> {
             override fun map(list: List<CharacterCache>): List<String> {
-                return list.map{characterCache ->
-                characterCache.map(characterToUrlMapper)
+                return list.map { characterCache ->
+                    characterCache.map(characterToUrlMapper)
 
                 }
             }

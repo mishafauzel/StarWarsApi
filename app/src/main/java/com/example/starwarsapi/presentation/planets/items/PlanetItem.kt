@@ -4,13 +4,17 @@ import com.example.starwarsapi.presentation.planets.base_communications.ListMuta
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
-data class PlanetItem(private val id:Int, private val name:String,private val listMutator: ListMutator):ItemUi {
-    override fun type()= 1
+data class PlanetItem(
+    private val id: Int,
+    private val name: String,
+    private val listMutator: ListMutator
+) : ItemUi {
+    override fun type() = 1
 
 
     override fun show(vararg views: MyView) {
         views[0].show(name)
-        views[1].handleClick{
+        views[1].handleClick {
             listMutator.changeIdList(id)
         }
 
@@ -24,8 +28,7 @@ data class PlanetItem(private val id:Int, private val name:String,private val li
         return "$id $name"
     }
 
-    fun checkIsExistsInList(list: List<Int>):Boolean
-    {
+    fun checkIsExistsInList(list: List<Int>): Boolean {
         return list.contains(element = id)
     }
 

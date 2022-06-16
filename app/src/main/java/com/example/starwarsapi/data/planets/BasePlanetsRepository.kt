@@ -24,19 +24,17 @@ class BasePlanetsRepository(
     PlanetsRepository {
     override suspend fun selectPlanetsByPage(page: Int): PlanetsDomain {
 
-            val cache = planetCacheDataSource.read(page)
-            if(cache.isEmpty())
-            {
-                val planetsCloud=planetService.getPlanetsByPage(page)
-                val planetsCache=planetsCloud.map(factoryMapperPlansClToPlansC.create(page))
-                val charactersCache=planetsCloud.map(mapperPlansClToListCharCache)
-                planetCacheDataSource.save(planetsCache.map(mapperPlanCacheToList))
-                charactersCacheDataSource.save(charactersCache)
+        val cache = planetCacheDataSource.read(page)
+        if (cache.isEmpty()) {
+            val planetsCloud = planetService.getPlanetsByPage(page)
+            val planetsCache = planetsCloud.map(factoryMapperPlansClToPlansC.create(page))
+            val charactersCache = planetsCloud.map(mapperPlansClToListCharCache)
+            planetCacheDataSource.save(planetsCache.map(mapperPlanCacheToList))
+            charactersCacheDataSource.save(charactersCache)
 
-                return planetsCache.map(mapperPlanCToDomain)
-            }
-            return cache.map(mapperPlanCToDomain)
-
+            return planetsCache.map(mapperPlanCToDomain)
+        }
+        return cache.map(mapperPlanCToDomain)
 
 
     }

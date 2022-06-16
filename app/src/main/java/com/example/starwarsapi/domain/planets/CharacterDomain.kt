@@ -20,7 +20,7 @@ interface CharacterDomain {
 
     interface Mapper<T> {
         fun map(id: Int, planetId: Int, characterName: String, birthYear: String): T
-         class Base(
+        class Base(
             private val navigationCommunication: GlobalNavigateCommunication.Update,
             private val dataQueue: DataQueue.Update<Any>
         ) : Mapper<CharacterItem> {

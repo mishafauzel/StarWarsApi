@@ -19,11 +19,14 @@ class FeatureDependencyContainer(
     override fun <T : ViewModel> module(clazz: Class<T>): Module<*> {
         return when (clazz) {
             PlanetsViewModel::class.java -> {
-                return PlanetsAndCharactersModule(coreModule = coreModule,mainNavigationSource,mainDataQueueSource)
+                return PlanetsAndCharactersModule(
+                    coreModule = coreModule,
+                    mainNavigationSource,
+                    mainDataQueueSource
+                )
             }
-            CharacterFullViewModel::class.java->
-            {
-                return CharacterFullInfoModule(coreModule,mainDataQueueSource)
+            CharacterFullViewModel::class.java -> {
+                return CharacterFullInfoModule(coreModule, mainDataQueueSource)
             }
             else -> dependencyContainer.module(clazz)
 

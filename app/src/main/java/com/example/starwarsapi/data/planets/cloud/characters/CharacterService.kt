@@ -5,13 +5,13 @@ import retrofit2.http.Path
 
 interface CharacterService {
 
-    suspend fun getCharactersById(listOfIds:List<String>): CharactersCloud
-    {
+    suspend fun getCharactersById(listOfIds: List<String>): CharactersCloud {
 
         return CharactersCloud.Base(listOfIds.map { id ->
             getCharacterById(id)
         })
     }
+
     @GET("people/{id}")
-    suspend fun getCharacterById(@Path(value = "id")id:String): CharacterCloud.Base
+    suspend fun getCharacterById(@Path(value = "id") id: String): CharacterCloud.Base
 }

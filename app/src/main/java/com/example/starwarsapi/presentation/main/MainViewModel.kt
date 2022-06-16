@@ -29,8 +29,7 @@ class MainViewModel(
         navigate(1)
     }
 
-    fun observeGlobalNavigationCommunication(owner: LifecycleOwner, observer: Observer<Int>)
-    {
+    fun observeGlobalNavigationCommunication(owner: LifecycleOwner, observer: Observer<Int>) {
         globalNavigateCommunication.observe(owner, observer)
     }
 
@@ -46,7 +45,7 @@ class MainViewModel(
     fun navigate(id: Int) {
         when (id) {
             1 -> navigationCommunication.map(planetNavigationScreen)
-            2->navigationCommunication.map(characterFullInfoScreen)
+            2 -> navigationCommunication.map(characterFullInfoScreen)
         }
     }
 }

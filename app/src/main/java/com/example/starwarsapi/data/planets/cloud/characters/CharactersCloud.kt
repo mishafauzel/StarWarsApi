@@ -21,7 +21,7 @@ interface CharactersCloud {
             private val id: Int
         ) : Mapper<CharactersCache> {
             override fun map(listOfCharacters: List<CharacterCloud>): CharactersCache {
-                val characterMapper=characterCloudMapperFac.create(id)
+                val characterMapper = characterCloudMapperFac.create(id)
                 return CharactersCache.Base(listOfCharacters.map { characterCloud ->
                     characterCloud.map(characterMapper)
                 })
@@ -30,10 +30,10 @@ interface CharactersCloud {
 
         interface Factory<T : Mapper<*>, B> {
             fun create(arg: B): T
-            class Base(private val characterCloudMapperFac: CharacterMapperFactory<CharacterMapper<CharacterCache>,Int>) :
+            class Base(private val characterCloudMapperFac: CharacterMapperFactory<CharacterMapper<CharacterCache>, Int>) :
                 Factory<Mapper<CharactersCache>, Int> {
                 override fun create(arg: Int): Mapper<CharactersCache> {
-                    return Base(characterCloudMapperFac,arg)
+                    return Base(characterCloudMapperFac, arg)
                 }
 
 

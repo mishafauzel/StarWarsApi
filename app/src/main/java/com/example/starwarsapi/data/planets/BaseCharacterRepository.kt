@@ -24,29 +24,29 @@ class BaseCharacterRepository(
         planetId: Int
     ): List<CharacterDomain> {
 
-            val cache = charactersCacheDataSource.read(planetId)
-            if(cache.isEmpty())
-            {
+        val cache = charactersCacheDataSource.read(planetId)
+        if (cache.isEmpty()) {
 
-                return listOf(CharacterDomain.Base(-1,"",-1,""))
-            }
-            if (!cache.isFull()) {
+            return listOf(CharacterDomain.Base(-1, "", -1, ""))
+        }
+        if (!cache.isFull()) {
 
-                val listOfUrl=cache.map(charactersCacheToListUrlMapper)
-                val mapper = charactersCloudMapperFac.create(planetId)
-
-
-                val charactersCloud= CharactersCloud.Base(listOfUrl.map{
-                    characterService.getCharacterById(it)
-                })
-                val newCache =
-                    charactersCloud.map(mapper)
-                charactersCacheDataSource.save(newCache.map(charactersCacheToListMapper))
-                return newCache.map(charactersCacheToListDomainMapper)
-
-            } else {
-                return cache.map(charactersCacheToListDomainMapper)
-            }
+            val listOfUrl = cache.map(charactersCacheToListUrlMapper)
+            val mapper = charactersCloudMapperFac.create(planetId)
 
 
-    }}
+            val charactersCloud = CharactersCloud.Base(listOfUrl.map {
+                characterService.getCharacterById(it)
+            })
+            val newCache =
+                charactersCloud.map(mapper)
+            charactersCacheDataSource.save(newCache.map(charactersCacheToListMapper))
+            return newCache.map(charactersCacheToListDomainMapper)
+
+        } else {
+            return cache.map(charactersCacheToListDomainMapper)
+        }
+
+
+    }
+}

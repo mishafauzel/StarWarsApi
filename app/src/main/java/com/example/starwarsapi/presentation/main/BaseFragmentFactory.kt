@@ -13,9 +13,10 @@ class BaseFragmentFactory(
 ) : FragmentFactory.Abstract(
     containerId,
     fragmentManager,
-)  {
+) {
     override val screens: List<NavigationScreen>
-        get() = listOf(PlanetNavigationScreen(),
+        get() = listOf(
+            PlanetNavigationScreen(),
             CharacterFullInfoScreen(MyShowStrategy.REPLACE_WITH_ADD_TO_BACKSTACK)
         )
 }

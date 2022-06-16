@@ -8,14 +8,16 @@ import com.github.johnnysc.coremvvm.presentation.adapter.GenericViewHolder
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
 
-class CharacterFullinfoViewHolderFactoryChain (
+class CharacterFullinfoViewHolderFactoryChain(
     private val viewHolderFactoryChain: ViewHolderFactoryChain<ItemUi>
-): ViewHolderFactoryChain<ItemUi> {
+) : ViewHolderFactoryChain<ItemUi> {
     override fun viewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<ItemUi> {
-        return when(viewType)
-        {
-            4->return CharacterFullInfoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.character_full_info,parent,false))
-            else->viewHolderFactoryChain.viewHolder(parent,viewType)
+        return when (viewType) {
+            4 -> return CharacterFullInfoViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.character_full_info, parent, false)
+            )
+            else -> viewHolderFactoryChain.viewHolder(parent, viewType)
         }
     }
 }

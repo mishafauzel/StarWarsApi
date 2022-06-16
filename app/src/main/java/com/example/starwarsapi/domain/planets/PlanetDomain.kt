@@ -32,8 +32,11 @@ interface PlanetDomain {
         suspend fun map(id: Int, name: String, listOfResidence: List<String>): T
         fun map(id: Int, name: String, listOfResidence: List<CharacterDomain>): T
 
-        class BaseToUI(charMapper: CharacterDomain.Mapper<CharacterItem>, private val listMutator: ListMutator) :
-            PlanetDomainToItemUI(charMapper,listMutator)
+        class BaseToUI(
+            charMapper: CharacterDomain.Mapper<CharacterItem>,
+            private val listMutator: ListMutator
+        ) :
+            PlanetDomainToItemUI(charMapper, listMutator)
 
 
         class BaseToPlanetWithResidence(baseCharacterRepository: CharacterRepository) :

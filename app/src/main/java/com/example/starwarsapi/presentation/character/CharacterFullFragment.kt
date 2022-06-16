@@ -8,7 +8,7 @@ import com.example.starwarsapi.R
 import com.example.starwarsapi.presentation.character.adapter.CharacterAdapter
 import com.github.johnnysc.coremvvm.presentation.BackPress
 
-class CharacterFullFragment:BackPress.Fragment<CharacterFullUI,CharacterFullViewModel>() {
+class CharacterFullFragment : BackPress.Fragment<CharacterFullUI, CharacterFullViewModel>() {
     override fun viewModelClass(): Class<CharacterFullViewModel> {
         return CharacterFullViewModel::class.java
     }
@@ -28,7 +28,7 @@ class CharacterFullFragment:BackPress.Fragment<CharacterFullUI,CharacterFullView
             characterFullUI.map(adapter)
 
         }
-        viewModel.observeException(this){
+        viewModel.observeException(this) {
             viewModel.addSomethingWentWrong()
         }
 

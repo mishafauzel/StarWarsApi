@@ -9,13 +9,14 @@ import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
 
 class PlanetsViewHolderFactoryChain(
     private val viewHolderFactoryChain: ViewHolderFactoryChain<ItemUi>
-):ViewHolderFactoryChain<ItemUi>  {
+) : ViewHolderFactoryChain<ItemUi> {
     override fun viewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<ItemUi> {
-        when(viewType)
-        {
-            1->return PlanetsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.planet_item,parent,false))
+        when (viewType) {
+            1 -> return PlanetsViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.planet_item, parent, false)
+            )
 
-            else->return viewHolderFactoryChain.viewHolder(parent,viewType)
+            else -> return viewHolderFactoryChain.viewHolder(parent, viewType)
         }
     }
 }

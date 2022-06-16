@@ -17,18 +17,19 @@ import com.github.johnnysc.coremvvm.presentation.*
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 
-class PlanetsViewModel(canGoBackCallback: CanGoBack.Callback,
-                       private val interactor: PlanetsInteractor,
-                       private val planetsErrorCommunication: PlanetsErrorComunication.Observe,
-                       private val progressCommunication: ProgressCommunication.Update,
-                       private val nextPageCommunication: NextPageCommunication.Base,
-                       private val listMutator: ListMutator,
-                       private val mapperPagerDataToInt:PagerData.Mapper<Int>,
+class PlanetsViewModel(
+    canGoBackCallback: CanGoBack.Callback,
+    private val interactor: PlanetsInteractor,
+    private val planetsErrorCommunication: PlanetsErrorComunication.Observe,
+    private val progressCommunication: ProgressCommunication.Update,
+    private val nextPageCommunication: NextPageCommunication.Base,
+    private val listMutator: ListMutator,
+    private val mapperPagerDataToInt: PagerData.Mapper<Int>,
 
-                       communication: PlanetsCommunication,
-                       dispatchers: Dispatchers
-):BackPress.ViewModel<PlanetsUi>(canGoBackCallback,communication,dispatchers),Retry {
-    private var currentPageData:PagerData=PagerData.Base(0,1)
+    communication: PlanetsCommunication,
+    dispatchers: Dispatchers
+) : BackPress.ViewModel<PlanetsUi>(canGoBackCallback, communication, dispatchers), Retry {
+    private var currentPageData: PagerData = PagerData.Base(0, 1)
     private var canGoBack = true
 
     init {
@@ -45,49 +46,47 @@ class PlanetsViewModel(canGoBackCallback: CanGoBack.Callback,
     }
 
 
-
     private val canGoBackCallbackInner = object : CanGoBack {
         override fun canGoBack() = canGoBack
     }
 
 
-
-    fun observeException(lifecycleOwner: LifecycleOwner,observer: Observer<Int>)
-    {
-        planetsErrorCommunication.observe(lifecycleOwner,observer)
+    fun observeException(lifecycleOwner: LifecycleOwner, observer: Observer<Int>) {
+        planetsErrorCommunication.observe(lifecycleOwner, observer)
     }
-    fun addSomethingWentWrong()
-    {
+
+    fun addSomethingWentWrong() {
         communication.map(PlanetsUi.Base(planetUI = listOf(SomethingWentWrongItem(retry = this))))
     }
 
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
-    fun observeNextPageCommunication(lifecycleOwner: LifecycleOwner,observer: Observer<PagerData>)
-    {
-        nextPageCommunication.observe(lifecycleOwner,observer)
+    fun observeNextPageCommunication(
+        lifecycleOwner: LifecycleOwner,
+        observer: Observer<PagerData>
+    ) {
+        nextPageCommunication.observe(lifecycleOwner, observer)
     }
-    fun getInfoNextPage(pageNumber:PagerData)
-    {
+
+    fun getInfoNextPage(pageNumber: PagerData) {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-            interactor.getListOfPlanetsByPage(pageNumber.map(mapperPagerDataToInt),atFinish) {
+            interactor.getListOfPlanetsByPage(pageNumber.map(mapperPagerDataToInt), atFinish) {
                 communication.map(it.first)
-                currentPageData=it.second
+                currentPageData = it.second
 
             }
         }
     }
 
     override fun retry() {
-      getInfoNextPage(currentPageData)
+        getInfoNextPage(currentPageData)
     }
 
-    fun observeListMutator(owner: LifecycleOwner,observer:Observer<PlanetsUi>)
-    {
-        this.listMutator.observe(owner,observer)
+    fun observeListMutator(owner: LifecycleOwner, observer: Observer<PlanetsUi>) {
+        this.listMutator.observe(owner, observer)
     }
 
 

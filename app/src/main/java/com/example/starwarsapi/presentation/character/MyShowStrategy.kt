@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager
 import com.github.johnnysc.coremvvm.presentation.BaseFragment
 import com.github.johnnysc.coremvvm.presentation.ShowStrategy
 
-class MyShowStrategy{
+class MyShowStrategy {
     object REPLACE_WITH_ADD_TO_BACKSTACK : ShowStrategy() {
         override fun show(
             id: String,

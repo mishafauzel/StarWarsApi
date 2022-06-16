@@ -9,7 +9,7 @@ interface PlanetsCloud {
     fun <T> map(mapper: Mapper<T>): T
     class Base(
         @SerializedName("next")
-        private val next:String?,
+        private val next: String?,
 
         @SerializedName("results")
         private val listOfPlanets: List<PlanetCloud.Base>
@@ -28,7 +28,7 @@ interface PlanetsCloud {
         ) : Mapper<PlanetsCache> {
             override fun map(next: String?, listOfPlanets: List<PlanetCloud>): PlanetsCache {
                 return PlanetsCache.Base(listOfPlanets = listOfPlanets.map { planetCloud ->
-                    planetCloud.map(mapperFactory.create(currentPage,next?:""))
+                    planetCloud.map(mapperFactory.create(currentPage, next ?: ""))
                 })
 
             }
@@ -36,7 +36,10 @@ interface PlanetsCloud {
 
         class BaseToListCharacters(private val planetToListCharacters: PlanetCloud.Mapper<List<CharacterCache>>) :
             Mapper<List<CharacterCache>> {
-            override fun map(next: String?, listOfPlanets: List<PlanetCloud>): List<CharacterCache> {
+            override fun map(
+                next: String?,
+                listOfPlanets: List<PlanetCloud>
+            ): List<CharacterCache> {
                 val mutableList = mutableListOf<CharacterCache>()
                 listOfPlanets.forEach { planetCloud ->
                     mutableList.addAll(planetCloud.map(planetToListCharacters))

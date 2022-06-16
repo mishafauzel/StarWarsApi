@@ -7,13 +7,16 @@ import com.github.johnnysc.coremvvm.presentation.adapter.GenericViewHolder
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ViewHolderFactoryChain
 
-class SomethingWentWrongViewHolderFactoryChain  (private val viewHolderFactoryChain: ViewHolderFactoryChain<ItemUi>
-): ViewHolderFactoryChain<ItemUi>  {
+class SomethingWentWrongViewHolderFactoryChain(
+    private val viewHolderFactoryChain: ViewHolderFactoryChain<ItemUi>
+) : ViewHolderFactoryChain<ItemUi> {
     override fun viewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<ItemUi> {
-        return when(viewType)
-        {
-            5->SomethingWentWrongViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.something_went_wrong,parent,false))
-            else->viewHolderFactoryChain.viewHolder(parent,viewType)
+        return when (viewType) {
+            5 -> SomethingWentWrongViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.something_went_wrong, parent, false)
+            )
+            else -> viewHolderFactoryChain.viewHolder(parent, viewType)
         }
     }
 }

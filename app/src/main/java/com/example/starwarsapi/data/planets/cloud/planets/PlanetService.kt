@@ -6,5 +6,5 @@ import retrofit2.http.Query
 interface PlanetService {
 
     @GET("planets/")
-    suspend fun getPlanetsByPage(@Query("page") pageNumber:Int): PlanetsCloud.Base
+    suspend fun getPlanetsByPage(@Query("page") pageNumber: Int): PlanetsCloud.Base
 }

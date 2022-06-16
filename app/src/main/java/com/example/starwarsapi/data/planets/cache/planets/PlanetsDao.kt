@@ -5,8 +5,8 @@ import androidx.room.*
 @Dao
 interface PlanetsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun save(listOfPlanets:List<PlanetCache.Base>)
+    fun save(listOfPlanets: List<PlanetCache.Base>)
 
     @Query("SELECT id,name,page_id,next_page_id FROM planet_table WHERE page_id=:pageId")
-    fun selectByPage(pageId:Int):List<PlanetCache.Base>
+    fun selectByPage(pageId: Int): List<PlanetCache.Base>
 }

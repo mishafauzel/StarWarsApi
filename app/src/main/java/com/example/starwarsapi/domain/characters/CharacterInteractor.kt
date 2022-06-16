@@ -15,7 +15,7 @@ interface CharacterInteractor {
 
     class Base(
         private val characterFullIInfoRepository: CharacterFullIInfoRepository,
-         handleError: HandleError,
+        handleError: HandleError,
         dispatchers: Dispatchers
     ) : CharacterInteractor,
         Interactor.Abstract(dispatchers, handleError) {
@@ -23,8 +23,8 @@ interface CharacterInteractor {
             id: Int,
             atFinish: () -> Unit,
             successful: (CharacterFullUI) -> Unit
-        ) =handle(successful=successful,atFinish=atFinish){
-            val result=characterFullIInfoRepository.getFullInfoAboutCharacter(id)
+        ) = handle(successful = successful, atFinish = atFinish) {
+            val result = characterFullIInfoRepository.getFullInfoAboutCharacter(id)
 
             return@handle result
         }

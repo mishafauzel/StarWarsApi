@@ -12,28 +12,28 @@ import com.github.johnnysc.coremvvm.presentation.FragmentFactory
 import com.github.johnnysc.coremvvm.presentation.NavigationScreen
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 
-class MainActivity : BackPress.Activity<MainViewModel>(),ProvideViewModel {
-    private lateinit var fragmentFactory:FragmentFactory
+class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
+    private lateinit var fragmentFactory: FragmentFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragmentFactory=BaseFragmentFactory(R.id.container,supportFragmentManager)
+        fragmentFactory = BaseFragmentFactory(R.id.container, supportFragmentManager)
 
-        viewModel=provideViewModel(MainViewModel::class.java,this)
+        viewModel = provideViewModel(MainViewModel::class.java, this)
 
-        viewModel.observeNavigation(this){
+        viewModel.observeNavigation(this) {
             fragmentFactory.fragment(navigationScreen = it)
         }
-        viewModel.observeGlobalNavigationCommunication(this){
+        viewModel.observeGlobalNavigationCommunication(this) {
             viewModel.navigate(it)
         }
-        val progress=findViewById<View>(R.id.progressLayout)
-        viewModel.observeProgress(this){
+        val progress = findViewById<View>(R.id.progressLayout)
+        viewModel.observeProgress(this) {
             it.apply(progress)
         }
-        viewModel.observe(this){
-            Toast.makeText(this,it,Toast.LENGTH_LONG).show()
+        viewModel.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
 
 
@@ -42,11 +42,9 @@ class MainActivity : BackPress.Activity<MainViewModel>(),ProvideViewModel {
     override fun <T : androidx.lifecycle.ViewModel> provideViewModel(
         clazz: Class<T>,
         owner: ViewModelStoreOwner
-    ): T
-        =(application as ProvideViewModel).provideViewModel(clazz,owner)
+    ): T = (application as ProvideViewModel).provideViewModel(clazz, owner)
 
-    fun navigate(id:Int)
-    {
+    fun navigate(id: Int) {
         viewModel.navigate(id)
     }
 

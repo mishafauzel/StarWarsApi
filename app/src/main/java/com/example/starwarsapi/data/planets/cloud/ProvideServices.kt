@@ -11,11 +11,11 @@ interface ProvideServices {
 
     fun providePlanetsService(): PlanetService
 
-    fun provideFullInfoCharacter():FullInfoCharacter
+    fun provideFullInfoCharacter(): FullInfoCharacter
 
     class Base(retrofitBuilder: ProvideRetrofitBuilder) :
         MakeService.Abstract(retrofitBuilder), ProvideServices {
-        override fun baseUrl()="https://swapi.dev/api/"
+        override fun baseUrl() = "https://swapi.dev/api/"
 
         override fun provideCharacterService(): CharacterService {
             return service(CharacterService::class.java)

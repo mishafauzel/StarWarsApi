@@ -9,7 +9,7 @@ import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 data class SomethingWentWrongItem(
     private val retry: Retry,
 
-) : ItemUi {
+    ) : ItemUi {
     override fun type(): Int {
         return 5
     }

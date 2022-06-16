@@ -7,12 +7,14 @@ import com.example.starwarsapi.presentation.planets.base_communications.ListMuta
 import com.example.starwarsapi.presentation.planets.items.PlanetItem
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
-open class PlanetDomainToItemUI(private val charMapper: CharacterDomain.Mapper<CharacterItem>, private val listMutator: ListMutator): PlanetDomain.Mapper<List<ItemUi>>
-{
-    override  fun map(id: Int, name: String,listOfResidence:List<CharacterDomain>): List<ItemUi> {
-        val mutableList= mutableListOf<ItemUi>()
-        mutableList.add(PlanetItem(id, name,listMutator))
-        val listOfCharUI=listOfResidence.map {
+open class PlanetDomainToItemUI(
+    private val charMapper: CharacterDomain.Mapper<CharacterItem>,
+    private val listMutator: ListMutator
+) : PlanetDomain.Mapper<List<ItemUi>> {
+    override fun map(id: Int, name: String, listOfResidence: List<CharacterDomain>): List<ItemUi> {
+        val mutableList = mutableListOf<ItemUi>()
+        mutableList.add(PlanetItem(id, name, listMutator))
+        val listOfCharUI = listOfResidence.map {
             it.map(charMapper)
         }
         mutableList.addAll(listOfCharUI)
