@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-import com.example.starwarsapi.data.planets.UrlIdMapper
 import com.example.starwarsapi.domain.planets.PagerDomain
 import com.example.starwarsapi.domain.planets.PlanetDomain
 
@@ -21,31 +20,32 @@ interface PlanetCache {
          val name: String,
         @ColumnInfo(name="page_id")
          val pageId:Int,
-        @ColumnInfo(name="next_page_url")
-         val nextPageUrl:String,
+        @ColumnInfo(name="next_page_id")
+         val nextPageId:Int=-1,
 
 
 
-    ): PlanetCache
+        ): PlanetCache
     {
         override fun <T> map(mapper: Mapper<T>): T {
-            return mapper.map(id,name,pageId, nextPageUrl)
+            return mapper.map(id,name,pageId, nextPageId)
         }
 
     }
     interface Mapper<T>
     {
-        fun map(id:Int, name:String, pageId:Int, nextPageUrl: String):T
+        fun map(id:Int, name:String, pageId:Int, nextPageId: Int):T
 
-        class BaseToPagerDomain(private val urlIdMapper: UrlIdMapper): Mapper<PagerDomain>
+        class BaseToPagerDomain(): Mapper<PagerDomain>
         {
+            private val baseString="https://swapi.dev/api/planets/?page="
             override fun map(
                 id: Int,
                 name: String,
                 pageId: Int,
-                nextPageUrl: String
+                nextPageid: Int
             ): PagerDomain {
-                return PagerDomain.Base(urlIdMapper.convertToUrl(pageId,"https://swapi.dev/api/planets/?page="), nextPageUrl)
+                return PagerDomain.Base(pageId, nextPageid)
             }
         }
         class BaseToPlanetDomain(): Mapper<PlanetDomain>
@@ -54,7 +54,7 @@ interface PlanetCache {
                 id: Int,
                 name: String,
                 pageId: Int,
-                nextPageUrl: String
+                nextPageId: Int
             ): PlanetDomain {
                 return PlanetDomain.Base(id,name, emptyList())
             }

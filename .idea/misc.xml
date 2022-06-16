@@ -7,11 +7,13 @@
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/cgaracter_full_info.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/character_full_info.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/character_item.xml" value="0.2857142857142857" />
+        <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/do_uou_want_know_more.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/no_known_residents.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/planet_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/planets_fragment.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/single_recycler_view_layout.xml" value="0.1" />
         <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/something_went_wrong.xml" value="0.2857142857142857" />
+        <entry key="..\:/Users/misha/AndroidStudioProjects/StarWarsApi/app/src/main/res/layout/there_is_no_data.xml" value="0.2857142857142857" />
       </map>
     </option>
   </component>

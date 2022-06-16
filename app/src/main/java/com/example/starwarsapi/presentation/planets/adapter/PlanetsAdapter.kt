@@ -8,7 +8,7 @@ interface PlanetsAdapter {
         PlanetsViewHolderFactoryChain(
             EmptyCharacterHolderFactoryChain(
                 CharacterViewHolderFactoryChain(
-                    SomethingWentWrongViewHolderFactoryChain(ViewHolderFactoryChain.Exception())
+                    SomethingWentWrongViewHolderFactoryChain(GetNextPageDataViewHolderChain(ThereIsNoDataAnymoreViewHolderFactoryChain(ViewHolderFactoryChain.Exception())))
             )
         )
     ))

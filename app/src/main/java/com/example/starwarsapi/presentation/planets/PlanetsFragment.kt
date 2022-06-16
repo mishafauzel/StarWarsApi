@@ -1,15 +1,16 @@
 package com.example.starwarsapi.presentation.planets
 
-import android.icu.lang.UCharacter
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.starwarsapi.R
-import com.example.starwarsapi.presentation.main.MainActivity
 import com.example.starwarsapi.presentation.planets.adapter.PlanetsAdapter
+import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.presentation.BackPress
 
+private const val TAG = "PlanetsFragment"
 class PlanetsFragment : BackPress.Fragment<PlanetsUi, PlanetsViewModel>() {
     override fun viewModelClass() = PlanetsViewModel::class.java
 
@@ -25,12 +26,17 @@ class PlanetsFragment : BackPress.Fragment<PlanetsUi, PlanetsViewModel>() {
 
 
 
-        viewModel.observe(this) { planetsUI ->
+        viewModel.observeListMutator(this) { planetsUI ->
             planetsUI.map(planetsAdapter)
 
         }
         viewModel.observeException(this){
             viewModel.addSomethingWentWrong()
+        }
+        viewModel.observeNextPageCommunication(this){pageNumber->
+            Log.d(TAG, "onViewCreated: $pageNumber")
+            viewModel.getInfoNextPage(pageNumber)
+
         }
 
 

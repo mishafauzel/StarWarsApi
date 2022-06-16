@@ -1,5 +1,6 @@
-package com.example.starwarsapi.presentation.planets
+package com.example.starwarsapi.presentation.planets.nav_screen
 
+import com.example.starwarsapi.presentation.planets.PlanetsFragment
 import com.github.johnnysc.coremvvm.presentation.NavigationScreen
 import com.github.johnnysc.coremvvm.presentation.ShowStrategy
 

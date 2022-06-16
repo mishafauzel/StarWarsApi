@@ -5,11 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.starwarsapi.core.Retry
 import com.example.starwarsapi.domain.characters.CharacterInteractor
-import com.example.starwarsapi.domain.planets.PlanetsInteractor
-import com.example.starwarsapi.presentation.DataKeeper
-import com.example.starwarsapi.presentation.planets.PlanetsCommunication
-import com.example.starwarsapi.presentation.planets.PlanetsErrorComunication
-import com.example.starwarsapi.presentation.planets.SomethingWentWrongItem
+import com.example.starwarsapi.presentation.character.base_communications.CharacterFullComunication
+import com.example.starwarsapi.presentation.planets.items.SomethingWentWrongItem
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.BackPress
 import com.github.johnnysc.coremvvm.presentation.CanGoBack
@@ -51,7 +48,7 @@ class CharacterFullViewModel(canGoBackCallback: CanGoBack.Callback,
     }
 
     fun addSomethingWentWrong() {
-        communication.map(CharacterFullUI.Exception(listOf(SomethingWentWrongItem(this))))
+        communication.map(CharacterFullUI.Exception(listOf(SomethingWentWrongItem(this,))))
     }
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)

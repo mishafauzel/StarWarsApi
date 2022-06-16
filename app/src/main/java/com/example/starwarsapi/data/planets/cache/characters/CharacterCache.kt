@@ -11,7 +11,7 @@ import com.example.starwarsapi.core.IsDataFull
 import com.example.starwarsapi.data.planets.UrlIdMapper
 import com.example.starwarsapi.data.planets.cache.planets.PlanetCache
 import com.example.starwarsapi.domain.planets.CharacterDomain
-import com.example.starwarsapi.presentation.character.CharacterFullInfoItem
+import com.example.starwarsapi.presentation.character.items.CharacterFullInfoItem
 import com.example.starwarsapi.presentation.character.CharacterFullUI
 
 interface CharacterCache:IsDataFull,HasExtraData {

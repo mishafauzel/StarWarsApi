@@ -1,4 +1,4 @@
-package com.example.starwarsapi.presentation.character
+package com.example.starwarsapi.presentation.character.items
 
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView

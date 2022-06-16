@@ -1,9 +1,14 @@
-package com.example.starwarsapi.sl
+package com.example.starwarsapi.sl.base
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.example.starwarsapi.sl.FeatureDependencyContainer
+import com.example.starwarsapi.sl.main.MainDependencyContainer
+import com.example.starwarsapi.sl.main.MainDataQueueSource
+import com.example.starwarsapi.sl.main.MainModule
+import com.example.starwarsapi.sl.main.MainNavigationSource
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.DependencyContainer
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
@@ -16,10 +21,11 @@ class App:Application(),ProvideViewModel {
     override fun onCreate() {
         super.onCreate()
         mainDataQueueSource= MainDataQueueSource()
-        mainNavigationSource=MainNavigationSource()
+        mainNavigationSource= MainNavigationSource()
         val coreModule = CoreModule.Base(this)
-        val main=MainDependencyContainer(DependencyContainer.Error(),coreModule,mainNavigationSource)
-        val mainModule=MainModule(coreModule,mainNavigationSource)
+        val main=
+            MainDependencyContainer(DependencyContainer.Error(),coreModule,mainNavigationSource)
+        val mainModule= MainModule(coreModule,mainNavigationSource)
         viewModelsFactory=ViewModelsFactory(FeatureDependencyContainer(coreModule,main,mainNavigationSource,mainDataQueueSource))
 
     }

@@ -1,8 +1,7 @@
-package com.example.starwarsapi.presentation.planets
+package com.example.starwarsapi.presentation.planets.base_communications
 
 import com.github.johnnysc.coremvvm.presentation.Communication
-import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
-import java.net.NetworkInterface
+
 //int потому что не помню как можно убрать поставить значение ничего.а уже 2 часа ночи
 interface PlanetsErrorComunication {
     interface Observe : Communication.Observe<Int>

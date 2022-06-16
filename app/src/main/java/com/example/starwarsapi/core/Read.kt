@@ -1,5 +1,5 @@
 package com.example.starwarsapi.core
 
-interface Read<inputData,outputData> {
-    fun read(inputData: inputData):outputData
+interface Read<i,o> {
+    fun read(inputData: i):o
 }

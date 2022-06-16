@@ -12,4 +12,7 @@
     <string name="retry">Retry</string>
     <string name="Hair_color">Hair color</string>
     <string name="skin_color">Skin color</string>
+    <string name="do_you_want_know_more">Do you want know more?</string>
+    <string name="yes">Yes</string>
+    <string name="there_is_no_data_anymore">There is no data anymore</string>
 </resources>

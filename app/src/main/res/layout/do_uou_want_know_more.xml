@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    >
+    <com.github.johnnysc.coremvvm.presentation.adapter.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/do_you_want_know_more"
+        android:layout_margin="15dp"
+        android:textColor="@color/black"
+        android:layout_gravity="start"/>
+    <com.github.johnnysc.coremvvm.presentation.adapter.MyButton
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yes"
+        android:padding="15dp"
+        android:textColor="@color/teal_700"
+        android:layout_gravity="end"
+        />
+
+</androidx.cardview.widget.CardView>

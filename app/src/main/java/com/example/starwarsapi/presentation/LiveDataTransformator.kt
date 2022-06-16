@@ -1,10 +1,9 @@
 package com.example.starwarsapi.presentation
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.example.starwarsapi.presentation.planets.PlanetsUi
-import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
-
+private const val TAG = "LiveDataTransformator"
 abstract class LiveDataTransformator<from,to>() {
     protected val outputLiveData:MediatorLiveData<to> = MediatorLiveData()
 
@@ -12,6 +11,7 @@ abstract class LiveDataTransformator<from,to>() {
     {
         outputLiveData.addSource(transformable.provideViewModelForTransformation()){inputData->
             val output=transform(inputData)
+            Log.d(TAG, "setTransformable: ${output}")
             changeValue(output)
 
         }

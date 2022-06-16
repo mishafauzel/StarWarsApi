@@ -1,11 +1,12 @@
 package com.example.starwarsapi.domain.planets
 
-import com.example.starwarsapi.presentation.planets.PlanetsUi
+import com.example.starwarsapi.presentation.planets.basedata.PagerData
+import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 interface PlanetsDomain {
     suspend fun <T> map(mapper: Mapper<T>): T
-    class Base(private val pagerDomain: PagerDomain, private val planetDomain: List<PlanetDomain>) :
+    data class Base(private val pagerDomain: PagerDomain, private val planetDomain: List<PlanetDomain>) :
         PlanetsDomain {
         override suspend fun <T> map(mapper: Mapper<T>): T {
             return mapper.map(pagerDomain, planetDomain)
@@ -27,6 +28,15 @@ interface PlanetsDomain {
             }
         }
 
+        class BaseToPagerData(private val pagerDomainMapper: PagerDomain.Mapper<PagerData>) : Mapper<PagerData>
+        {
+            override suspend fun map(
+                pagerDomain: PagerDomain,
+                planetDomain: List<PlanetDomain>
+            ): PagerData {
+                return pagerDomain.map(pagerDomainMapper)
+            }
+        }
         class BaseToUI(
             private val planetToUI: PlanetDomain.Mapper<List<ItemUi>>,
             private val pagerToUI: PagerDomain.Mapper.Base
@@ -43,7 +53,8 @@ interface PlanetsDomain {
                 }
 
                 val pagerUi = pagerDomain.map(pagerToUI)
-                return PlanetsUi.Base(pagerUi, listOfItemUI)
+                listOfItemUI.add(pagerUi)
+                return PlanetsUi.Base( listOfItemUI)
             }
 
         }

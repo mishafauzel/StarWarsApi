@@ -17,16 +17,16 @@ import com.example.starwarsapi.data.planets.cloud.characters.CharactersCloud
 import com.example.starwarsapi.data.planets.cloud.planets.PlanetCloud
 import com.example.starwarsapi.data.planets.cloud.planets.PlanetsCloud
 import com.example.starwarsapi.domain.planets.*
-import com.example.starwarsapi.presentation.DataKeeper
 import com.example.starwarsapi.presentation.main.GlobalNavigateCommunication
-import com.example.starwarsapi.presentation.planets.ListMutator
+import com.example.starwarsapi.presentation.planets.base_communications.ListMutator
+import com.example.starwarsapi.presentation.planets.base_communications.NextPageCommunication
+import com.example.starwarsapi.sl.main.DataQueue
 
 import com.github.johnnysc.coremvvm.data.HandleError
-import com.github.johnnysc.coremvvm.presentation.HandleUiError
 import com.github.johnnysc.coremvvm.sl.CoreModule
-import java.security.PrivateKey
 
 private const val TAG = "PlanetDependencyProvide"
+
 interface PlanetDependencyProvider {
     fun provideCharacterRepository(): CharacterRepository
     fun providePlanetsRepository(): PlanetsRepository
@@ -42,9 +42,10 @@ interface PlanetDependencyProvider {
         private val provideServices: ProvideServices,
         private val roomDatabase: AbstractDatabase,
         private val core: CoreModule,
-         private val listMutator: ListMutator
+        private val listMutator: ListMutator,
+        private val nextPageCommunication: NextPageCommunication.Update
     ) : PlanetDependencyProvider {
-        private val urlIdMapper = UrlIdMapper.IdConverter()
+
         val charactersCacheDataSource =
             CharactersCacheDataSource.Base(roomDatabase.provideCharactersDao())
 
@@ -54,11 +55,11 @@ interface PlanetDependencyProvider {
             return BaseCharacterRepository(
                 charactersCacheDataSource,
                 characterService,
-                CharactersCloud.Mapper.Factory.Base(CharacterCloud.Mapper.Factory.Base(urlIdMapper)),
+                CharactersCloud.Mapper.Factory.Base(CharacterCloud.Mapper.Factory.Base(UrlIdMapper.IdConverter)),
                 CharactersCache.Mapper.BaseToList(),
                 CharactersCache.Mapper.BaseToListCharactersDomain(CharacterCache.Mapper.BaseToListOfCharacterDomain()),
                 CharactersCache.Mapper.BaseToListOfIds(
-                    CharacterCache.Mapper.CharacterToIdMapper(urlIdMapper)
+                    CharacterCache.Mapper.CharacterToIdMapper(UrlIdMapper.IdConverter)
                 )
             )
         }
@@ -67,19 +68,19 @@ interface PlanetDependencyProvider {
             val planetCacheDataSource = PlanetCacheDataSource.Base(roomDatabase.providePlanetsDao())
             val planetService = provideServices.providePlanetsService()
 
-            val urlIdMapper = UrlIdMapper.IdConverter()
+
             return BasePlanetsRepository(
                 planetCacheDataSource,
                 planetService,
-                PlanetsCloud.Mapper.Factory.Base(PlanetCloud.Mapper.Factory.Base(urlIdMapper)),
+                PlanetsCloud.Mapper.Factory.Base(PlanetCloud.Mapper.Factory.Base()),
                 PlanetsCache.Mapper.BaseToList(),
                 PlanetsCache.Mapper.BaseToDomain(
                     PlanetCache.Mapper.BaseToPlanetDomain(),
-                    PlanetCache.Mapper.BaseToPagerDomain(urlIdMapper)
+                    PlanetCache.Mapper.BaseToPagerDomain()
                 ),
                 PlanetsCloud.Mapper.BaseToListCharacters(
                     PlanetCloud.Mapper.MapperToListOfCharacters(
-                        urlIdMapper
+
                     )
                 ),
                 charactersCacheDataSource,
@@ -97,13 +98,16 @@ interface PlanetDependencyProvider {
             return PlanetsInteractor.Base(
                 PlanetsDomain.Mapper.BaseToUI(
                     PlanetDomain.Mapper.BaseToUI(
-                        CharacterDomain.Mapper.Base(navigationCommunication, dataQueue = dataKeeper ),listMutator
-                    ), PagerDomain.Mapper.Base()
+                        CharacterDomain.Mapper.Base(
+                            navigationCommunication,
+                            dataQueue = dataKeeper
+                        ), listMutator
+                    ), PagerDomain.Mapper.Base(nextPageCommunication)
                 ),
                 planetsRepository,
                 PlanetsDomain.Mapper.BaseToWithResidence(
                     PlanetDomain.Mapper.BaseToPlanetWithResidence(characterRepository)
-                ),
+                ),PlanetsDomain.Mapper.BaseToPagerData(PagerDomain.Mapper.BaseToPlanetsPager()),
                 core.dispatchers(), handleError
             )
         }

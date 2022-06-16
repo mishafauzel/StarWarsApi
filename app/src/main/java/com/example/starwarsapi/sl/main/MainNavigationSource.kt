@@ -1,4 +1,4 @@
-package com.example.starwarsapi.sl
+package com.example.starwarsapi.sl.main
 
 import com.example.starwarsapi.presentation.main.GlobalNavigateCommunication
 

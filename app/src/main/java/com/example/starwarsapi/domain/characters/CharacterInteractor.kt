@@ -2,9 +2,7 @@ package com.example.starwarsapi.domain.characters
 
 import android.util.Log
 import com.example.starwarsapi.data.character.CharacterFullIInfoRepository
-import com.example.starwarsapi.domain.planets.PlanetsInteractor
 import com.example.starwarsapi.presentation.character.CharacterFullUI
-import com.example.starwarsapi.presentation.planets.PlanetsUi
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.Interactor

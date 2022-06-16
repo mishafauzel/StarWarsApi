@@ -8,10 +8,11 @@ import com.example.starwarsapi.data.planets.cache.AbstractDatabase
 import com.example.starwarsapi.data.planets.cache.characters.CharacterCache
 import com.example.starwarsapi.data.planets.cloud.ProvideServices
 import com.example.starwarsapi.domain.characters.CharacterInteractor
-import com.example.starwarsapi.presentation.character.CharacterFullComunication
+import com.example.starwarsapi.presentation.character.base_communications.CharacterFullComunication
 import com.example.starwarsapi.presentation.character.CharacterFullInfoErrorCommunication
 import com.example.starwarsapi.presentation.character.CharacterFullViewModel
 import com.example.starwarsapi.presentation.character.CharactersErrorHandle
+import com.example.starwarsapi.sl.main.MainDataQueueSource
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.Module
 
@@ -24,14 +25,14 @@ class CharacterFullInfoModule(
         val charDao =
             coreModule.provideRoomDatabase(AbstractDatabase::class.java).provideCharactersDao()
         val provideServices = ProvideServices.Base(coreModule)
-        val urlIdMapper = UrlIdMapper.IdConverter()
+
         val id = mainDataQueue.provideDataQueue().read() as Int
         val characterFullInfoRrepositor =
             CharacterFullIInfoRepository.Base(
                 CharacterCacheDataSource.Base(charDao),
                 CharacterCache.Mapper.CharacterToCharacterFullUI(),
                 provideServices.provideFullInfoCharacter(),
-                CharacterFullInfoCloud.Mapper.BaseToCharacterCache(urlIdMapper)
+                CharacterFullInfoCloud.Mapper.BaseToCharacterCache()
             )
         val errorCommunication = CharacterFullInfoErrorCommunication.Base()
         val charactersErrorHandle = CharactersErrorHandle(errorCommunication)

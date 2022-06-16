@@ -2,13 +2,13 @@ package com.example.starwarsapi.domain.planets
 
 import com.example.starwarsapi.domain.planets.smartcontract.PlanetDomainToDomainWithResidence
 import com.example.starwarsapi.domain.planets.smartcontract.PlanetDomainToItemUI
-import com.example.starwarsapi.presentation.planets.CharacterItem
-import com.example.starwarsapi.presentation.planets.ListMutator
+import com.example.starwarsapi.presentation.planets.items.CharacterItem
+import com.example.starwarsapi.presentation.planets.base_communications.ListMutator
 
 interface PlanetDomain {
     suspend fun <T> map(mapper: Mapper<T>): T
 
-    class Base(
+    data class Base(
         private val id: Int,
         private val name: String,
         private val listOfResidence: List<String>
@@ -18,7 +18,7 @@ interface PlanetDomain {
         }
     }
 
-    class BaseWithResidence(
+    data class BaseWithResidence(
         private val id: Int,
         private val name: String,
         private val listOfResidence: List<CharacterDomain>
@@ -32,7 +32,7 @@ interface PlanetDomain {
         suspend fun map(id: Int, name: String, listOfResidence: List<String>): T
         fun map(id: Int, name: String, listOfResidence: List<CharacterDomain>): T
 
-        class BaseToUI(charMapper: CharacterDomain.Mapper<CharacterItem>,private val listMutator: ListMutator) :
+        class BaseToUI(charMapper: CharacterDomain.Mapper<CharacterItem>, private val listMutator: ListMutator) :
             PlanetDomainToItemUI(charMapper,listMutator)
 
 

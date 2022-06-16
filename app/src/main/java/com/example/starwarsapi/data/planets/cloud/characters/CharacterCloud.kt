@@ -23,7 +23,7 @@ interface CharacterCloud {
                                    private val planetId:Int): Mapper<CharacterCache>
         {
             override fun map(name: String, birthYear: String, url: String): CharacterCache {
-                return CharacterCache.Base(urlIdMapper.convertToId(url),planetId, name,birthYear)
+                return CharacterCache.Base(urlIdMapper.convertToInt(url),planetId, name,birthYear)
             }
         }
         interface Factory<T: Mapper<*>,B>

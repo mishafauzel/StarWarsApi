@@ -1,31 +1,38 @@
 package com.example.starwarsapi.domain.planets
 
-import com.example.starwarsapi.presentation.planets.PlanetsUi
+import android.util.Log
+import com.example.starwarsapi.presentation.planets.basedata.PagerData
+import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
+import com.example.starwarsapi.presentation.planets.items.PagerItem
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.data.HandleError
 import com.github.johnnysc.coremvvm.domain.Interactor
 
+private const val TAG = "PlanetsInteractor"
 interface PlanetsInteractor {
     suspend fun getListOfPlanetsByPage(
         pageNumber: Int, atFinish: () -> Unit,
-        successful: (PlanetsUi) -> Unit
+        successful: (Pair<PlanetsUi,PagerData>) -> Unit
     )
 
     class Base(
         private val mapper: PlanetsDomain.Mapper<PlanetsUi>,
         private val repository: PlanetsRepository,
         private val mapperDomainToDomainWithResidence: PlanetsDomain.Mapper<PlanetsDomain>,
+        private val mapperDomainToPagerItem:PlanetsDomain.Mapper<PagerData>,
         dispatchers: Dispatchers,
         handleError: HandleError
     ) : PlanetsInteractor, Interactor.Abstract(dispatchers, handleError) {
         override suspend fun getListOfPlanetsByPage(
             pageNumber: Int,
             atFinish: () -> Unit,
-            successful: (PlanetsUi) -> Unit
+            successful:(Pair<PlanetsUi,PagerData>) -> Unit
         ) = handle(successful, atFinish) {
+            Log.d(TAG, "getListOfPlanetsByPage: $pageNumber")
             val data = repository.selectPlanetsByPage(pageNumber)
             val dataWithResidence=data.map(mapperDomainToDomainWithResidence)
-            return@handle dataWithResidence.map(mapper)
+            Log.d(TAG, "getListOfPlanetsByPage: $dataWithResidence")
+            return@handle Pair(dataWithResidence.map(mapper),dataWithResidence.map(mapperDomainToPagerItem))
 
         }
     }

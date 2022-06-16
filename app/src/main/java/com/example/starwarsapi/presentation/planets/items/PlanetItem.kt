@@ -1,10 +1,10 @@
-package com.example.starwarsapi.presentation.planets
+package com.example.starwarsapi.presentation.planets.items
 
+import com.example.starwarsapi.presentation.planets.base_communications.ListMutator
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
-import kotlin.time.measureTime
 
-class PlanetItem(private val id:Int, private val name:String,private val listMutator: ListMutator):ItemUi {
+data class PlanetItem(private val id:Int, private val name:String,private val listMutator: ListMutator):ItemUi {
     override fun type()= 1
 
 

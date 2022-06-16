@@ -1,15 +1,12 @@
-package com.example.starwarsapi.presentation.planets
+package com.example.starwarsapi.presentation.planets.items
 
-import com.example.starwarsapi.presentation.DataKeeper
-import com.example.starwarsapi.presentation.character.CharacterFullInfoScreen
-import com.example.starwarsapi.presentation.character.MyShowStrategyp
 import com.example.starwarsapi.presentation.main.GlobalNavigateCommunication
-import com.example.starwarsapi.sl.DataQueue
-import com.github.johnnysc.coremvvm.presentation.NavigationCommunication
+import com.example.starwarsapi.sl.main.DataQueue
+
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
-class CharacterItem(
+data class CharacterItem(
     private val id: Int,
     private val planetId: Int,
     private val characterName: String,

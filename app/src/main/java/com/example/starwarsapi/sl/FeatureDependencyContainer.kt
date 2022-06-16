@@ -3,6 +3,8 @@ package com.example.starwarsapi.sl
 import androidx.lifecycle.ViewModel
 import com.example.starwarsapi.presentation.character.CharacterFullViewModel
 import com.example.starwarsapi.presentation.planets.PlanetsViewModel
+import com.example.starwarsapi.sl.main.MainDataQueueSource
+import com.example.starwarsapi.sl.main.MainNavigationSource
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.DependencyContainer
 import com.github.johnnysc.coremvvm.sl.Module

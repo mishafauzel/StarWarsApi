@@ -3,12 +3,10 @@ package com.example.starwarsapi.presentation.main
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.starwarsapi.presentation.character.CharacterFullInfoScreen
-import com.example.starwarsapi.presentation.character.MyShowStrategyp
-import com.example.starwarsapi.presentation.planets.PlanetNavigationScreen
+import com.example.starwarsapi.presentation.character.nav_screen.CharacterFullInfoScreen
+import com.example.starwarsapi.presentation.planets.nav_screen.PlanetNavigationScreen
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.*
-import java.security.acl.Owner
 
 private const val TAG = "MainViewModel"
 class MainViewModel(

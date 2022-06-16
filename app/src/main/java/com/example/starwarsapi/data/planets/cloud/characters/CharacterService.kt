@@ -7,6 +7,7 @@ interface CharacterService {
 
     suspend fun getCharactersById(listOfIds:List<String>): CharactersCloud
     {
+
         return CharactersCloud.Base(listOfIds.map { id ->
             getCharacterById(id)
         })

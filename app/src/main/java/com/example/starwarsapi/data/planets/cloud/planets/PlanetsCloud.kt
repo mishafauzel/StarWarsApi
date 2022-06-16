@@ -9,7 +9,8 @@ interface PlanetsCloud {
     fun <T> map(mapper: Mapper<T>): T
     class Base(
         @SerializedName("next")
-        private val next: String,
+        private val next:String?,
+
         @SerializedName("results")
         private val listOfPlanets: List<PlanetCloud.Base>
     ) : PlanetsCloud {
@@ -19,16 +20,15 @@ interface PlanetsCloud {
     }
 
     interface Mapper<T> {
-        fun map(next: String, listOfPlanets: List<PlanetCloud>): T
+        fun map(next: String?, listOfPlanets: List<PlanetCloud>): T
 
         class BaseToCache(
             private val currentPage: Int,
             private val mapperFactory: PlanetCloud.Mapper.Factory<PlanetCache>
         ) : Mapper<PlanetsCache> {
-            override fun map(next: String, listOfPlanets: List<PlanetCloud>): PlanetsCache {
-                val mapper = mapperFactory.create(currentPage, next)
+            override fun map(next: String?, listOfPlanets: List<PlanetCloud>): PlanetsCache {
                 return PlanetsCache.Base(listOfPlanets = listOfPlanets.map { planetCloud ->
-                    planetCloud.map(mapper)
+                    planetCloud.map(mapperFactory.create(currentPage,next?:""))
                 })
 
             }
@@ -36,7 +36,7 @@ interface PlanetsCloud {
 
         class BaseToListCharacters(private val planetToListCharacters: PlanetCloud.Mapper<List<CharacterCache>>) :
             Mapper<List<CharacterCache>> {
-            override fun map(next: String, listOfPlanets: List<PlanetCloud>): List<CharacterCache> {
+            override fun map(next: String?, listOfPlanets: List<PlanetCloud>): List<CharacterCache> {
                 val mutableList = mutableListOf<CharacterCache>()
                 listOfPlanets.forEach { planetCloud ->
                     mutableList.addAll(planetCloud.map(planetToListCharacters))
@@ -47,10 +47,10 @@ interface PlanetsCloud {
 
         interface Factory<T> {
             fun create(currentPage: Int): Mapper<T>
-            class Base(private val planetCloudToCacheMapperFactory: PlanetCloud.Mapper.Factory<PlanetCache>) :
+            class Base(private val planetCloudToCacheMapper: PlanetCloud.Mapper.Factory<PlanetCache>) :
                 Factory<PlanetsCache> {
                 override fun create(currentPage: Int): Mapper<PlanetsCache> {
-                    return BaseToCache(currentPage, planetCloudToCacheMapperFactory)
+                    return BaseToCache(currentPage, planetCloudToCacheMapper)
                 }
 
 

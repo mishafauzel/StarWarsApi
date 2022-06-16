@@ -1,6 +1,5 @@
 package com.example.starwarsapi.presentation.character
 
-import com.example.starwarsapi.presentation.planets.PlanetsUi
 import com.github.johnnysc.coremvvm.core.Mapper
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
