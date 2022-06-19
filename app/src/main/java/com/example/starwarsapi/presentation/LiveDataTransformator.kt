@@ -20,7 +20,7 @@ abstract class LiveDataTransformator<from, to>() {
         outputLiveData.observe(lifecycleOwner, observer)
     }
 
-    fun changeValue(value: to) {
+    private fun changeValue(value: to) {
         outputLiveData.value = value!!
     }
 

@@ -13,4 +13,5 @@ interface PlanetsDao {
 
     @Query("SELECT id,name,page_id,next_page_id FROM planet_table WHERE page_id=:pageId")
     fun selectByPage(pageId: Int): List<PlanetCache.Base>
+
 }

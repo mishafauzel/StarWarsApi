@@ -75,6 +75,7 @@ interface CharacterCache : IsDataFull, HasExtraData {
         ): T
 
         class BaseToListOfCharacterDomain : Mapper<CharacterDomain> {
+
             override fun map(
                 id: Int,
                 planetId: Int,
@@ -91,6 +92,7 @@ interface CharacterCache : IsDataFull, HasExtraData {
         }
 
         class CharacterToIdMapper() : Mapper<String> {
+
             override fun map(
                 id: Int,
                 planetId: Int,
@@ -106,6 +108,7 @@ interface CharacterCache : IsDataFull, HasExtraData {
         }
 
         class CharacterToCharacterFullUI() : Mapper<CharacterFullUI> {
+
             override fun map(
                 id: Int,
                 planetId: Int,

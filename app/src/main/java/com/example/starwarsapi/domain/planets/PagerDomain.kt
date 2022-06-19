@@ -25,7 +25,7 @@ interface PagerDomain {
 
             override fun map(currentPageInt: Int, nextPageInt: Int): PagerItem {
                 return if (nextPageInt == Int.MIN_VALUE)
-                    PagerItem.ThereIsnoMoreResults()
+                    PagerItem.ThereAreNoMoreResults()
                 else
                     PagerItem.Base(
                         PagerData.Base(currentPageInt, nextPageInt),

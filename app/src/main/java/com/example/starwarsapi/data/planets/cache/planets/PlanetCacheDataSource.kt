@@ -1,6 +1,7 @@
 package com.example.starwarsapi.data.planets.cache.planets
 
 interface PlanetCacheDataSource {
+
     interface Save : com.github.johnnysc.coremvvm.core.Save<List<PlanetCache>>
 
     interface Read : com.example.starwarsapi.core.Read<Int, PlanetsCache>

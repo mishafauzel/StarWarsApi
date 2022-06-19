@@ -30,6 +30,7 @@ interface DataDependenciesProvider {
 
     class Base(coreModule: CoreModule, private val provideServices: ProvideServices) :
         DataDependenciesProvider {
+
         private val appDatabase = coreModule.provideRoomDatabase(AbstractDatabase::class.java)
         private val handleException = HandleDomainException()
 

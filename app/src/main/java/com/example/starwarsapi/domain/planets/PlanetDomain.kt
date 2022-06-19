@@ -17,7 +17,6 @@ interface PlanetDomain {
 
         override suspend fun <T> map(mapper: Mapper<T>): T = mapper.map(id, name, listOfResidence)
 
-
     }
 
     data class BaseWithResidence(

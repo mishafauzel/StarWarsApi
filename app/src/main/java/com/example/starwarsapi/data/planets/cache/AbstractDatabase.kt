@@ -13,4 +13,5 @@ abstract class AbstractDatabase : RoomDatabase() {
     abstract fun providePlanetsDao(): PlanetsDao
 
     abstract fun provideCharactersDao(): CharacterDao
+
 }

@@ -11,14 +11,12 @@ import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 
 class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
     private lateinit var fragmentFactory: FragmentFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         fragmentFactory = BaseFragmentFactory(R.id.container, supportFragmentManager)
-
         viewModel = provideViewModel(MainViewModel::class.java, this)
-
         viewModel.observeNavigation(this) {
             fragmentFactory.fragment(navigationScreen = it)
         }

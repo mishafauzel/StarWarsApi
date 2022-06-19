@@ -28,7 +28,7 @@ interface PagerItem : ItemUi {
     }
 
 
-    class ThereIsnoMoreResults : PagerItem {
+    class ThereAreNoMoreResults : PagerItem {
 
         override fun type() = 6
 

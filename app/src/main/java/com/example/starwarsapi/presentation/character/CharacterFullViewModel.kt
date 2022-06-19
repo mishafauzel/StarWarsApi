@@ -26,9 +26,7 @@ class CharacterFullViewModel(
         progressCommunication.map(Visibility.Gone())
         canGoBack = true
     }
-
     private var canGoBack = true
-
     private val canGoBackCallbackInner = object : CanGoBack {
         override fun canGoBack() = canGoBack
     }

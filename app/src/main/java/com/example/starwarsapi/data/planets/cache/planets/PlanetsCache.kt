@@ -39,8 +39,6 @@ interface PlanetsCache : IsEmpty {
                 })
 
         }
-
     }
-
 }
 
