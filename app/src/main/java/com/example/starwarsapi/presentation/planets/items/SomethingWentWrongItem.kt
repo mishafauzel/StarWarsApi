@@ -7,12 +7,12 @@ import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
 data class SomethingWentWrongItem(
     private val retry: RetryCommunication.Update,
-    private val message:String,
+    private val message: String,
     private val pagerData: PagerData
 
-    ) : ItemUi {
+) : ItemUi {
 
-    override fun type()=5
+    override fun type() = 5
 
 
     override fun show(vararg views: MyView) {

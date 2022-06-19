@@ -33,10 +33,10 @@ class PlanetsDependensiesContainer(
         )
     }
 
-    override fun <T : ViewModel> module(clazz: Class<T>)=
+    override fun <T : ViewModel> module(clazz: Class<T>) =
         if (clazz == PlanetsViewModel::class.java) {
             planetsAndCharactersModule
         } else {
             dependencyContainer.module(clazz)
         }
-    }
+}

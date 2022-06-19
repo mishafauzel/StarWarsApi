@@ -30,6 +30,7 @@ interface DomainException {
     }
 
     interface Mapper<T> {
+
         fun map(messageId: Int): T
 
         class BaseToPlanetsUi(

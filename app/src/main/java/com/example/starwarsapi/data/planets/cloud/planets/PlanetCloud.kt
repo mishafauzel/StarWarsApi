@@ -71,7 +71,8 @@ interface PlanetCloud {
             override fun map(
                 name: String,
                 url: String,
-                listOfResidents: List<String>) = listOfResidents.map { charUrl ->
+                listOfResidents: List<String>
+            ) = listOfResidents.map { charUrl ->
                 CharacterCache.Base(
                     idConverter.convertToInt(charUrl),
                     idConverter.convertToInt(url)

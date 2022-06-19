@@ -7,6 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface CharacterDao {
+
     @Query("SELECT * FROM character_table WHERE planet_id=:planetId")
     fun selectCharByPlanetId(planetId: Int): List<CharacterCache.Base>
 

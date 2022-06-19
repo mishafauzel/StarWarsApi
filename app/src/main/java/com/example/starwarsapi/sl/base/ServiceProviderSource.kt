@@ -5,9 +5,9 @@ import com.github.johnnysc.coremvvm.sl.CoreModule
 
 interface ServiceProviderSource {
 
-    fun provideServices():ProvideServices
+    fun provideServices(): ProvideServices
 
-    class Base(private val coreModule: CoreModule):ServiceProviderSource {
+    class Base(private val coreModule: CoreModule) : ServiceProviderSource {
 
         override fun provideServices(): ProvideServices {
             return ProvideServices.Base(coreModule)

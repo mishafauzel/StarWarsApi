@@ -34,8 +34,7 @@ interface CharacterInteractor {
                         )
                     )
                 }
-            }
-            finally {
+            } finally {
                 dispatchers.changeToUI { atFinish.invoke() }
             }
         }

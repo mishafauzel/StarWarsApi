@@ -21,24 +21,20 @@ class BaseCharacterRepository(
     override suspend fun selectCharacters(
         planetId: Int
     ): List<CharacterDomain> {
-        val result: List<CharacterDomain>
         val cache = charactersCacheDataSource.read(planetId)
-        if (cache.isEmpty()) {
-            result = listOf(CharacterDomain.Base(-1, "", -1, ""))
-        }
-        else
-        if (cache.isFull()) {
-            result = cache.map(charactersCacheToListDomainMapper)
-        } else {
-            val listOfUrl = cache.map(charactersCacheToListUrlMapper)
-            val mapper = charactersCloudMapperFac.create(planetId)
-            val charactersCloud = characterService.getCharactersById(listOfUrl)
-            val newCache = charactersCloud.map(mapper)
-            charactersCacheDataSource.save(newCache.map(charactersCacheToListMapper))
-            result = newCache.map(charactersCacheToListDomainMapper)
-        }
-        return result
-
+        return if (cache.isEmpty()) {
+            listOf(CharacterDomain.Base(-1, "", -1, ""))
+        } else
+            if (cache.isFull()) {
+                cache.map(charactersCacheToListDomainMapper)
+            } else {
+                val listOfUrl = cache.map(charactersCacheToListUrlMapper)
+                val mapper = charactersCloudMapperFac.create(planetId)
+                val charactersCloud = characterService.getCharactersById(listOfUrl)
+                val newCache = charactersCloud.map(mapper)
+                charactersCacheDataSource.save(newCache.map(charactersCacheToListMapper))
+                newCache.map(charactersCacheToListDomainMapper)
+            }
 
     }
 }

@@ -14,7 +14,6 @@ class ThereIsNoDataAnymoreViewHolderFactoryChain(private val viewHolderFactoryCh
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.there_is_no_data, parent, false)
         )
-    }
-    else viewHolderFactoryChain.viewHolder(parent, viewType)
+    } else viewHolderFactoryChain.viewHolder(parent, viewType)
 
 }

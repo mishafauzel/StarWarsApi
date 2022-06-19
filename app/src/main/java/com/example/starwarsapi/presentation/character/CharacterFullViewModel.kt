@@ -40,7 +40,7 @@ class CharacterFullViewModel(
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
-     fun retry() {
+    fun retry() {
         getCharacterFullInfoById()
     }
 
@@ -55,7 +55,7 @@ class CharacterFullViewModel(
     }
 
     fun observeRetryCommunication(lifeCycleOwner: LifecycleOwner, observer: Observer<Int>) {
-        retryCommunication.observe(lifeCycleOwner,observer)
+        retryCommunication.observe(lifeCycleOwner, observer)
     }
 
 }

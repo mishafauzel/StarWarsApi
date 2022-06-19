@@ -46,7 +46,9 @@ interface DomainDependensiesProvider {
                 dataDependenciesProvider.providePlanetRepository(),
                 PlanetsDomain.Mapper.BaseToWithResidence(
                     PlanetDomain.Mapper.BaseToPlanetWithResidence(dataDependenciesProvider.provideCharacterRepository())
-                ),PagerData.Mapper.Base(),DomainException.Mapper.Factory.Base(manageResources,retryCommunication),
+                ),
+                PagerData.Mapper.Base(),
+                DomainException.Mapper.Factory.Base(manageResources, retryCommunication),
                 coreModule.dispatchers()
             )
         }

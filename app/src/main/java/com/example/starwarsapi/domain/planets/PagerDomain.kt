@@ -24,15 +24,13 @@ interface PagerDomain {
             Mapper<PagerItem> {
 
             override fun map(currentPageInt: Int, nextPageInt: Int): PagerItem {
-                val result: PagerItem
-                if (nextPageInt == Int.MIN_VALUE)
-                    result = PagerItem.ThereIsnoMoreResults()
+                return if (nextPageInt == Int.MIN_VALUE)
+                    PagerItem.ThereIsnoMoreResults()
                 else
-                    result = PagerItem.Base(
+                    PagerItem.Base(
                         PagerData.Base(currentPageInt, nextPageInt),
                         nextPageCommunication = nextPageCommunication
                     )
-                return result
             }
 
         }

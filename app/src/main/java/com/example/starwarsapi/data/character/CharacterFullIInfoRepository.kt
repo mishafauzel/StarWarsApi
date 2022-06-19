@@ -18,17 +18,16 @@ interface CharacterFullIInfoRepository {
     ) : CharacterFullIInfoRepository {
 
         override suspend fun getFullInfoAboutCharacter(id: Int): CharacterFullUI {
-            val result: CharacterFullUI
             val character = characterCacheDataSource.read(id)
-            if (character.hasExtraData()) {
-                result= character.map(characterCacheToCharacterFullUIMapper)
+            return if (character.hasExtraData()) {
+                character.map(characterCacheToCharacterFullUIMapper)
             } else {
                 val characterCloud = characterService.getCharacterById(id.toString())
                 val charCache = characterCloud.map(characterCloudToCharacterFullCacheMapper)
                 characterCacheDataSource.save(charCache)
-                result=charCache.map(characterCacheToCharacterFullUIMapper)
+                charCache.map(characterCacheToCharacterFullUIMapper)
             }
-            return result
+
         }
     }
 }

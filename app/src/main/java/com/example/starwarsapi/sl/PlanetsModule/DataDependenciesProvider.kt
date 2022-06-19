@@ -67,7 +67,7 @@ interface DataDependenciesProvider {
                 CharactersCache.Mapper.BaseToList(),
                 CharactersCache.Mapper.BaseToListCharactersDomain(CharacterCache.Mapper.BaseToListOfCharacterDomain()),
                 CharactersCache.Mapper.BaseToListOfIds(CharacterCache.Mapper.CharacterToIdMapper())
-                )
+            )
         }
 
     }

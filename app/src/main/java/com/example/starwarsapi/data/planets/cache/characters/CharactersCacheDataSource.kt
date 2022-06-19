@@ -13,11 +13,10 @@ interface CharactersCacheDataSource {
             characterDao.insertListOfCharacters(data.map { it as CharacterCache.Base })
         }
 
-        override fun read(inputData: Int) = CharactersCache.Base(characterDao.selectCharByPlanetId(inputData))
+        override fun read(inputData: Int) =
+            CharactersCache.Base(characterDao.selectCharByPlanetId(inputData))
 
     }
-
-
 
 
 }

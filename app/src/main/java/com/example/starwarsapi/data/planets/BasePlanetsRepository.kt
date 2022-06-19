@@ -11,7 +11,6 @@ import com.example.starwarsapi.domain.planets.PlanetsDomain
 import com.example.starwarsapi.domain.planets.PlanetsRepository
 
 
-
 class BasePlanetsRepository(
     private val planetCacheDataSource: PlanetCacheDataSource.Mutable,
     private val planetService: PlanetsCloudDataSource,
@@ -23,18 +22,17 @@ class BasePlanetsRepository(
 ) : PlanetsRepository {
 
     override suspend fun selectPlanetsByPage(page: Int): PlanetsDomain {
-        val result: PlanetsDomain
         val cache = planetCacheDataSource.read(page)
-        if (cache.isEmpty()) {
+         return if (cache.isEmpty()) {
             val planetsCloud = planetService.planetsByPage(page)
             val planetsCache =
                 planetsCloud.map(factoryMapperPlanetsCloudToPlanetsCashe.create(page))
             val charactersCache = planetsCloud.map(mapperPlanetsCloudToListChararacterCache)
             planetCacheDataSource.save(planetsCache.map(mapperPlanetsCacheToListPlanetCache))
             charactersCacheDataSource.save(charactersCache)
-            result = planetsCache.map(mapperPlanCahceToPlanetsDomain)
+            planetsCache.map(mapperPlanCahceToPlanetsDomain)
         } else
-            result = cache.map(mapperPlanCahceToPlanetsDomain)
-        return result
+            cache.map(mapperPlanCahceToPlanetsDomain)
+
     }
 }

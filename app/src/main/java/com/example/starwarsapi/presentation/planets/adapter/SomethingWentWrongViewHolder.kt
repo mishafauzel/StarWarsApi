@@ -10,7 +10,7 @@ class SomethingWentWrongViewHolder(view: View) : GenericViewHolder<ItemUi>(view)
     override fun bind(item: ItemUi) {
         with(itemView)
         {
-            item.show(findViewById(R.id.retry),findViewById(R.id.error_message))
+            item.show(findViewById(R.id.retry), findViewById(R.id.error_message))
         }
     }
 }

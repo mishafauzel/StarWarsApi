@@ -16,7 +16,7 @@ data class CharacterItem(
 ) : ItemUi {
 
     override fun type() =
-        if(id == -1) 3
+        if (id == -1) 3
         else 2
 
 

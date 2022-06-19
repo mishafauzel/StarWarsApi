@@ -21,19 +21,31 @@ class App : Application(), ProvideViewModel {
         super.onCreate()
         mainDataQueueSource = MainDataQueueSource()
         mainNavigationSource = MainNavigationSource()
-        val mangeResourceProvider=MangeResourceProvider.Base()
-        val manageResouce=mangeResourceProvider.provideManageResource(this)
+        val mangeResourceProvider = MangeResourceProvider.Base()
+        val manageResouce = mangeResourceProvider.provideManageResource(this)
         val coreModule = CoreModule.Base(this)
-        val progressComunication=coreModule.provideProgressCommunication()
-        val provideServices=ServiceProviderSource.Base(coreModule).provideServices()
+        val progressComunication = coreModule.provideProgressCommunication()
+        val provideServices = ServiceProviderSource.Base(coreModule).provideServices()
         val main =
-            MainDependencyContainer(DependencyContainer.Error(), coreModule, mainNavigationSource,progressComunication)
+            MainDependencyContainer(
+                DependencyContainer.Error(),
+                coreModule,
+                mainNavigationSource,
+                progressComunication
+            )
 
         viewModelsFactory = ViewModelsFactory(
             CharactersDependensiesContainer(
-            PlanetsDependensiesContainer(main,coreModule,mainNavigationSource,mainDataQueueSource,
-                manageResouce,provideServices,progressComunication
-            ),coreModule,provideServices,manageResouce,progressComunication,mainDataQueueSource)
+                PlanetsDependensiesContainer(
+                    main, coreModule, mainNavigationSource, mainDataQueueSource,
+                    manageResouce, provideServices, progressComunication
+                ),
+                coreModule,
+                provideServices,
+                manageResouce,
+                progressComunication,
+                mainDataQueueSource
+            )
         )
 
     }

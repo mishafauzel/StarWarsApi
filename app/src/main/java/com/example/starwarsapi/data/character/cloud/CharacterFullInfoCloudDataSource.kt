@@ -11,7 +11,7 @@ interface CharacterFullInfoCloudDataSource : CloudDataSource {
         CharacterFullInfoCloudDataSource, CloudDataSource.Abstract(handleError) {
 
         override suspend fun getCharacterById(id: String) = handle {
-           return@handle fullInfoCharacter.getCharacterById(id)
+            return@handle fullInfoCharacter.getCharacterById(id)
         }
 
 

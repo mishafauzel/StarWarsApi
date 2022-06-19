@@ -10,22 +10,28 @@ import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.DependencyContainer
 
 class CharactersDependensiesContainer(
-    private val dependencyContainer:DependencyContainer,
+    private val dependencyContainer: DependencyContainer,
     coreModule: CoreModule,
     provideServices: ProvideServices,
     manageResources: ManageResources,
     progressCommunication: ProgressCommunication.Base,
     mainDataQueueSource: MainDataQueueSource
-):DependencyContainer {
+) : DependencyContainer {
 
-    private val characterModule:CharacterModule
+    private val characterModule: CharacterModule
 
     init {
-        characterModule=CharacterModule(coreModule, provideServices,manageResources,progressCommunication,mainDataQueueSource)
+        characterModule = CharacterModule(
+            coreModule,
+            provideServices,
+            manageResources,
+            progressCommunication,
+            mainDataQueueSource
+        )
     }
 
-    override fun <T : ViewModel> module(clazz: Class<T>)=
-        if(clazz==CharacterFullViewModel::class.java)
+    override fun <T : ViewModel> module(clazz: Class<T>) =
+        if (clazz == CharacterFullViewModel::class.java)
             characterModule
         else
             dependencyContainer.module(clazz)

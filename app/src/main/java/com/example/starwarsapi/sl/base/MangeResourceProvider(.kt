@@ -5,10 +5,9 @@ import com.github.johnnysc.coremvvm.core.ManageResources
 
 interface MangeResourceProvider {
 
-    fun provideManageResource(context:Context):ManageResources
+    fun provideManageResource(context: Context): ManageResources
 
-    class Base():MangeResourceProvider
-    {
+    class Base() : MangeResourceProvider {
         override fun provideManageResource(context: Context): ManageResources {
             return ManageResources.Base(context)
         }

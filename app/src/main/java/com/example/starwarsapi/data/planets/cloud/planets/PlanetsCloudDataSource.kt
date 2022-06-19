@@ -4,7 +4,6 @@ import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 
 
-
 interface PlanetsCloudDataSource {
 
     suspend fun planetsByPage(page: Int): PlanetsCloud

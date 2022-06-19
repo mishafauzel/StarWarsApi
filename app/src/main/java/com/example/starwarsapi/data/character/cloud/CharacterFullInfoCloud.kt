@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
 interface CharacterFullInfoCloud {
 
     fun <T> map(mapper: Mapper<T>): T
+
     data class Base(
         @SerializedName("name") private val name: String,
         @SerializedName("birth_year") private val birthYear: String,
@@ -35,6 +36,7 @@ interface CharacterFullInfoCloud {
     }
 
     interface Mapper<T> {
+
         fun map(
             name: String,
             birthYear: String,
@@ -49,6 +51,7 @@ interface CharacterFullInfoCloud {
 
         class BaseToCharacterCache(private val urlIdMapper: UrlIdMapper) :
             Mapper<CharacterCache> {
+
             override fun map(
                 name: String,
                 birthYear: String,
@@ -59,20 +62,18 @@ interface CharacterFullInfoCloud {
                 gender: String,
                 mass: String,
                 height: String
-            ): CharacterCache {
-                return CharacterCache.Base(
-                    urlIdMapper.convertToInt(url),
-                    urlIdMapper.convertToInt(homeWorldUrl),
-                    name,
-                    birthYear,
-                    hairColor,
-                    skinColor,
-                    gender,
-                    mass,
-                    height
-                )
-            }
-
+            ) = CharacterCache.Base(
+                urlIdMapper.convertToInt(url),
+                urlIdMapper.convertToInt(homeWorldUrl),
+                name,
+                birthYear,
+                hairColor,
+                skinColor,
+                gender,
+                mass,
+                height
+            )
         }
+
     }
 }

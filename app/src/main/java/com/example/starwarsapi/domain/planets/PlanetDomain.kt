@@ -15,7 +15,7 @@ interface PlanetDomain {
         private val listOfResidence: List<String>
     ) : PlanetDomain {
 
-        override suspend fun <T> map(mapper: Mapper<T>): T =mapper.map(id, name, listOfResidence)
+        override suspend fun <T> map(mapper: Mapper<T>): T = mapper.map(id, name, listOfResidence)
 
 
     }

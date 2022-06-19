@@ -15,5 +15,5 @@ interface CharacterCloudDataSource {
                 characterService.getCharacterById(id)
             })
         }
-        }
+    }
 }

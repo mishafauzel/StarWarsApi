@@ -19,7 +19,7 @@ class CharacterModule(
 ) : Module<CharacterFullViewModel> {
 
     override fun viewModel(): CharacterFullViewModel {
-        val retryCommunication=RetryCommunication.Base()
+        val retryCommunication = RetryCommunication.Base()
         val dataDependeciesProvider = DataDependeciesProvider.Base(coreModule, provideServices)
         val domainDependensiesProvider = DomainDependensiesProvider.Base(
             dataDependeciesProvider,

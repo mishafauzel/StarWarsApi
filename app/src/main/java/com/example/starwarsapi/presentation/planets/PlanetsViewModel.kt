@@ -55,19 +55,23 @@ class PlanetsViewModel(
         nextPageCommunication.observe(lifecycleOwner, observer)
     }
 
-    fun observeRetryCommunication(lifecycleOwner: LifecycleOwner,
-                                  observer: Observer<PagerData>)
-    {
-        retryCommunication.observe(lifecycleOwner,observer)
+    fun observeRetryCommunication(
+        lifecycleOwner: LifecycleOwner,
+        observer: Observer<PagerData>
+    ) {
+        retryCommunication.observe(lifecycleOwner, observer)
     }
 
     fun getInfoNextPage(pageNumber: PagerData) {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-          interactor.getListOfPlanetsByPage(pageNumber, atFinish = atFinish, successful = {planetsUi ->
-            communication.map(planetsUi)
-          })
+            interactor.getListOfPlanetsByPage(
+                pageNumber,
+                atFinish = atFinish,
+                successful = { planetsUi ->
+                    communication.map(planetsUi)
+                })
         }
     }
 
