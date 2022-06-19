@@ -37,16 +37,19 @@ interface UrlIdMapper {
     }
 
     interface StringConverter<out> {
-
+        val emptyResult:out
         fun convert(input: String): out
 
         class Base() : StringConverter<Int> {
+
+            override val emptyResult: Int
+                get() = Int.MIN_VALUE
+
             override fun convert(input: String) = try {
                 input.toInt()
             } catch (ex: Exception) {
-                Int.MIN_VALUE
+                emptyResult
             }
-
 
         }
 
@@ -77,8 +80,6 @@ interface UrlIdMapper {
 
         class Base(private val baseUrl: String) : Concatenation<Int> {
             override fun concat(secondValue: Int) = "$baseUrl$secondValue"
-
-
         }
 
     }
@@ -90,5 +91,6 @@ interface UrlIdMapper {
         class Base(private val prefix: String) : PrefixRemoving {
             override fun removePrefix(input: String) = input.removePrefix(prefix)
         }
+
     }
 }
