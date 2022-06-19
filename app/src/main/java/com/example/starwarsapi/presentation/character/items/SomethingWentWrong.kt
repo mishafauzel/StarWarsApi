@@ -11,7 +11,7 @@ class SomethingWentWrong(
 
     override fun content() = "something went wrong"
 
-    override fun id() = "Something went wrong"
+    override fun id() = content()
 
     override fun show(vararg views: MyView) {
         views[0].handleClick {

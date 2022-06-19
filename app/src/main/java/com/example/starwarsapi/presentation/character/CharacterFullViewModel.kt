@@ -32,17 +32,17 @@ class CharacterFullViewModel(
     }
 
     init {
-        getCharacterFullInfoById()
+        fetch()
     }
 
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
     fun retry() {
-        getCharacterFullInfoById()
+        fetch()
     }
 
-    private fun getCharacterFullInfoById() {
+    private fun fetch() {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
