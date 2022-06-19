@@ -1,7 +1,8 @@
 package com.example.starwarsapi.presentation
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 
 
 abstract class LiveDataTransformator<from, to>() {
@@ -11,7 +12,6 @@ abstract class LiveDataTransformator<from, to>() {
         outputLiveData.addSource(transformable.provideViewModelForTransformation()) { inputData ->
             val output = transform(inputData)
             changeValue(output)
-
         }
     }
 
@@ -25,4 +25,5 @@ abstract class LiveDataTransformator<from, to>() {
     }
 
     abstract fun transform(from: from): to
+
 }

@@ -1,6 +1,5 @@
 package com.example.starwarsapi.data.planets.cache.characters
 
-import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -8,11 +7,10 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import com.example.starwarsapi.core.HasExtraData
 import com.example.starwarsapi.core.IsDataFull
-import com.example.starwarsapi.data.planets.UrlIdMapper
 import com.example.starwarsapi.data.planets.cache.planets.PlanetCache
 import com.example.starwarsapi.domain.planets.CharacterDomain
+import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
 import com.example.starwarsapi.presentation.character.items.CharacterFullInfoItem
-import com.example.starwarsapi.presentation.character.CharacterFullUI
 
 interface CharacterCache : IsDataFull, HasExtraData {
     fun <T> map(mapper: Mapper<T>): T
@@ -43,34 +41,27 @@ interface CharacterCache : IsDataFull, HasExtraData {
         @ColumnInfo(name = "height")
         val height: String = "",
     ) : CharacterCache {
-        override fun <T> map(mapper: Mapper<T>): T {
-            return mapper.map(
-                id,
-                planetId,
-                characterName,
-                birthYear,
-                hairColor,
-                skinColo,
-                gender,
-                mass,
-                height
-            )
-        }
 
-        override fun isFull(): Boolean {
-            return characterName.isNotEmpty()
-        }
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(
+            id,
+            planetId,
+            characterName,
+            birthYear,
+            hairColor,
+            skinColo,
+            gender,
+            mass,
+            height
+        )
 
-        override fun hasExtraData(): Boolean {
+        override fun isFull() = characterName.isNotEmpty()
 
-            return mass.isNotEmpty()
-        }
-
+        override fun hasExtraData() = mass.isNotEmpty()
 
     }
 
-
     interface Mapper<T> {
+
         fun map(
             id: Int,
             planetId: Int,
@@ -94,13 +85,12 @@ interface CharacterCache : IsDataFull, HasExtraData {
                 gender: String,
                 mass: String,
                 height: String
-            ): CharacterDomain {
-                return CharacterDomain.Base(id, characterName, planetId, birthYear)
-            }
+            ) = CharacterDomain.Base(id, characterName, planetId, birthYear)
+
 
         }
 
-        class CharacterToIdMapper(private val urlIdMapper: UrlIdMapper) : Mapper<String> {
+        class CharacterToIdMapper() : Mapper<String> {
             override fun map(
                 id: Int,
                 planetId: Int,
@@ -111,9 +101,8 @@ interface CharacterCache : IsDataFull, HasExtraData {
                 gender: String,
                 mass: String,
                 height: String
-            ): String {
-                return id.toString()
-            }
+            ) = id.toString()
+
         }
 
         class CharacterToCharacterFullUI() : Mapper<CharacterFullUI> {
@@ -127,9 +116,9 @@ interface CharacterCache : IsDataFull, HasExtraData {
                 gender: String,
                 mass: String,
                 height: String
-            ): CharacterFullUI {
-                return CharacterFullUI.Base(
-                    characterFullInfoItem = CharacterFullInfoItem(
+            ) = CharacterFullUI.Base(
+                characterFullInfoItem = listOf(
+                    CharacterFullInfoItem(
                         characterName,
                         birthYear,
                         id,
@@ -140,7 +129,8 @@ interface CharacterCache : IsDataFull, HasExtraData {
                         height
                     )
                 )
-            }
+            )
+
         }
     }
 }

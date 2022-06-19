@@ -1,4 +1,4 @@
-package com.example.starwarsapi.domain.planets.smartcontract
+package com.example.starwarsapi.domain.planets.planets_domain_mappers
 
 import com.example.starwarsapi.domain.planets.CharacterDomain
 import com.example.starwarsapi.domain.planets.CharacterRepository
@@ -6,6 +6,7 @@ import com.example.starwarsapi.domain.planets.PlanetDomain
 
 open class PlanetDomainToDomainWithResidence(private val baseCharacterRepository: CharacterRepository) :
     PlanetDomain.Mapper<PlanetDomain> {
+
     override suspend fun map(
         id: Int,
         name: String,

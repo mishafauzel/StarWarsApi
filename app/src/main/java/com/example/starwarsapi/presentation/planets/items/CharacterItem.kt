@@ -14,11 +14,11 @@ data class CharacterItem(
     private val navigationCommunication: GlobalNavigateCommunication.Update,
     private val dataQueue: DataQueue.Update<Any>
 ) : ItemUi {
-    override fun type(): Int {
-        if (id == -1)
-            return 3
-        return 2
-    }
+
+    override fun type() =
+        if(id == -1) 3
+        else 2
+
 
     override fun show(vararg views: MyView) {
         if (id != -1) {
@@ -31,13 +31,11 @@ data class CharacterItem(
         }
     }
 
-    override fun id(): String {
-        return id.toString()
-    }
+    override fun id() = id.toString()
 
-    override fun content(): String {
-        return "$id,$characterName,$birthYear"
-    }
+
+    override fun content() = "$id,$characterName,$birthYear"
+
 }
 
 

@@ -1,44 +1,94 @@
 package com.example.starwarsapi.data.planets
 
-import android.util.Log
-
 
 interface UrlIdMapper {
     fun convertToInt(url: String): Int
-    fun convertToUrl(id: Int, baseUrl: String): String
 
-    object IdConverter : UrlIdMapper {
+    fun convertToUrl(id: Int): String
+
+
+    class IdConverter(
+        private val splitter: Split = Split.Base("/"),
+        private val filter: FilterList<String> = FilterList.Base(),
+        private val concatenation: Concatenation<Int> = Concatenation.Base("https://swapi.dev/api/planets/"),
+        private val stringConverter: StringConverter<Int> = StringConverter.Base()
+    ) : UrlIdMapper {
+
         override fun convertToInt(url: String): Int {
-            val urlParts = url.split("/")
-
-            val filtered = urlParts.filter { urlPart ->
-                urlPart.isNotEmpty()
-            }
-            return filtered.last().toInt()
+            val urlParts = splitter.split(url)
+            return stringConverter.convert(filter.filter(urlParts))
         }
 
-        override fun convertToUrl(id: Int, baseUrl: String): String {
-            return "$baseUrl$id"
+        override fun convertToUrl(id: Int) = concatenation.concat(id)
+
+    }
+
+    class PageConverter(
+        private val stringConverter: StringConverter<Int> = StringConverter.Base(),
+        private val prefixRemoving: PrefixRemoving = PrefixRemoving.Base("https://swapi.dev/api/planets/?page="),
+        private val concatenation: Concatenation<Int> = Concatenation.Base("https://swapi.dev/api/planets/?page=")
+    ) : UrlIdMapper {
+
+        override fun convertToInt(input: String) =
+            stringConverter.convert(prefixRemoving.removePrefix(input))
+
+        override fun convertToUrl(id: Int) = concatenation.concat(id)
+
+    }
+
+    interface StringConverter<out> {
+
+        fun convert(input: String): out
+
+        class Base() : StringConverter<Int> {
+            override fun convert(input: String) = try {
+                input.toInt()
+            } catch (ex: Exception) {
+                Int.MIN_VALUE
+            }
+
+
+        }
+
+    }
+
+    interface Split {
+
+        fun split(input: String): List<String>
+
+        class Base(private val delimitres: String) : Split {
+
+            override fun split(input: String) = input.split(delimitres)
+
         }
     }
 
-    object PageConverter : UrlIdMapper {
-        private val baseUrl = "https://swapi.dev/api/planets/?page="
+    interface FilterList<type> {
+        fun filter(i: List<type>): type
 
-        //"https://swapi.dev/api/planets/?page=2
-        override fun convertToInt(url: String): Int {
+        class Base(private val predicate: (String) -> Boolean = { it -> it.isNotEmpty() }) :
+            FilterList<String> {
+            override fun filter(input: List<String>) = input.filter(predicate = predicate).last()
+        }
+    }
 
-            try {
-                val result = url.removePrefix(baseUrl)
-                return result.toInt()
-            } catch (ex: Exception) {
-                return -1
-            }
+    interface Concatenation<secVal> {
+        fun concat(secondValue: secVal): String
+
+        class Base(private val baseUrl: String) : Concatenation<Int> {
+            override fun concat(secondValue: Int) = "$baseUrl$secondValue"
+
 
         }
 
-        override fun convertToUrl(id: Int, baseUrl: String): String {
-            return "$baseUrl$id"
+    }
+
+    interface PrefixRemoving {
+
+        fun removePrefix(input: String): String
+
+        class Base(private val prefix: String) : PrefixRemoving {
+            override fun removePrefix(input: String) = input.removePrefix(prefix)
         }
     }
 }

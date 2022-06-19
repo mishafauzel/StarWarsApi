@@ -2,7 +2,6 @@ package com.example.starwarsapi.presentation.character.items
 
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
-import com.google.gson.annotations.SerializedName
 
 data class CharacterFullInfoItem(
     private val name: String,
@@ -14,6 +13,7 @@ data class CharacterFullInfoItem(
     private val mass: String,
     private val height: String
 ) : ItemUi {
+
     override fun type(): Int {
         return 4
     }

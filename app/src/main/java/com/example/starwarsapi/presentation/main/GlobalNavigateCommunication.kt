@@ -1,8 +1,6 @@
 package com.example.starwarsapi.presentation.main
 
 import com.github.johnnysc.coremvvm.presentation.Communication
-import com.github.johnnysc.coremvvm.presentation.NavigationCommunication
-import com.github.johnnysc.coremvvm.presentation.NavigationScreen
 
 interface GlobalNavigateCommunication {
     interface Update : Communication.Update<Int>

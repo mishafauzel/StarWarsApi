@@ -1,6 +1,5 @@
 package com.example.starwarsapi.domain.planets
 
-import android.util.Log
 import com.example.starwarsapi.presentation.planets.base_communications.NextPageCommunication
 import com.example.starwarsapi.presentation.planets.basedata.PagerData
 import com.example.starwarsapi.presentation.planets.items.PagerItem
@@ -13,29 +12,29 @@ interface PagerDomain {
 
         override fun <T> map(mapper: Mapper<T>): T {
             return mapper.map(currentPageInt, nextPageInt)
+
         }
     }
 
     interface Mapper<T> {
+
         fun map(currentPageInt: Int, nextPageInt: Int): T
+
         class Base(private val nextPageCommunication: NextPageCommunication.Update) :
             Mapper<PagerItem> {
+
             override fun map(currentPageInt: Int, nextPageInt: Int): PagerItem {
-                if (nextPageInt != -1)
-                    return PagerItem.Base(
+                val result: PagerItem
+                if (nextPageInt == Int.MIN_VALUE)
+                    result = PagerItem.ThereIsnoMoreResults()
+                else
+                    result = PagerItem.Base(
                         PagerData.Base(currentPageInt, nextPageInt),
                         nextPageCommunication = nextPageCommunication
                     )
-                else
-                    return PagerItem.ThereIsnoMoreResults()
+                return result
             }
 
-        }
-
-        class BaseToPlanetsPager : Mapper<PagerData> {
-            override fun map(currentPageInt: Int, nextPageInt: Int): PagerData {
-                return PagerData.Base(currentPageInt, nextPageInt)
-            }
         }
     }
 }

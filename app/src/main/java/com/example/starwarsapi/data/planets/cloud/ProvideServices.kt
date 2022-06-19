@@ -7,6 +7,7 @@ import com.github.johnnysc.coremvvm.data.MakeService
 import com.github.johnnysc.coremvvm.data.ProvideRetrofitBuilder
 
 interface ProvideServices {
+
     fun provideCharacterService(): CharacterService
 
     fun providePlanetsService(): PlanetService
@@ -15,6 +16,7 @@ interface ProvideServices {
 
     class Base(retrofitBuilder: ProvideRetrofitBuilder) :
         MakeService.Abstract(retrofitBuilder), ProvideServices {
+
         override fun baseUrl() = "https://swapi.dev/api/"
 
         override fun provideCharacterService(): CharacterService {

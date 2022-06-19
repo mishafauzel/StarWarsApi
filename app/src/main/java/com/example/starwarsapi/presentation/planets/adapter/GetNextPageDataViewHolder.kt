@@ -6,6 +6,7 @@ import com.github.johnnysc.coremvvm.presentation.adapter.GenericViewHolder
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 class GetNextPageDataViewHolder(itemView: View) : GenericViewHolder<ItemUi>(itemView) {
+
     override fun bind(item: ItemUi) {
         item.show(
             with(itemView)

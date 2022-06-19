@@ -18,6 +18,7 @@ interface CharacterFullInfoCloud {
         @SerializedName("mass") private val mass: String,
         @SerializedName("height") private val height: String
     ) : CharacterFullInfoCloud {
+
         override fun <T> map(mapper: Mapper<T>): T {
             return mapper.map(
                 name,
@@ -46,7 +47,8 @@ interface CharacterFullInfoCloud {
             height: String
         ): T
 
-        class BaseToCharacterCache() : Mapper<CharacterCache> {
+        class BaseToCharacterCache(private val urlIdMapper: UrlIdMapper) :
+            Mapper<CharacterCache> {
             override fun map(
                 name: String,
                 birthYear: String,
@@ -59,8 +61,8 @@ interface CharacterFullInfoCloud {
                 height: String
             ): CharacterCache {
                 return CharacterCache.Base(
-                    UrlIdMapper.IdConverter.convertToInt(url),
-                    UrlIdMapper.IdConverter.convertToInt(homeWorldUrl),
+                    urlIdMapper.convertToInt(url),
+                    urlIdMapper.convertToInt(homeWorldUrl),
                     name,
                     birthYear,
                     hairColor,
@@ -72,6 +74,5 @@ interface CharacterFullInfoCloud {
             }
 
         }
-
     }
 }

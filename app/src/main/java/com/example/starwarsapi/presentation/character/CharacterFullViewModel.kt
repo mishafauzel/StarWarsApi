@@ -1,12 +1,11 @@
 package com.example.starwarsapi.presentation.character
 
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.starwarsapi.core.Retry
 import com.example.starwarsapi.domain.characters.CharacterInteractor
-import com.example.starwarsapi.presentation.character.base_communications.CharacterFullComunication
-import com.example.starwarsapi.presentation.planets.items.SomethingWentWrongItem
+import com.example.starwarsapi.presentation.character.base_communications.CharacterFullCommunication
+import com.example.starwarsapi.presentation.character.base_communications.RetryCommunication
+import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.BackPress
 import com.github.johnnysc.coremvvm.presentation.CanGoBack
@@ -17,11 +16,11 @@ class CharacterFullViewModel(
     canGoBackCallback: CanGoBack.Callback,
     private val interactor: CharacterInteractor,
     private val progressCommunication: ProgressCommunication.Update,
-    private val errorCommunication: CharacterFullInfoErrorCommunication.Observe,
-    communication: CharacterFullComunication,
+    private val retryCommunication: RetryCommunication.Observe,
+    communication: CharacterFullCommunication,
     dispatchers: Dispatchers,
     private val idOfCharacter: Int
-) : BackPress.ViewModel<CharacterFullUI>(canGoBackCallback, communication, dispatchers), Retry {
+) : BackPress.ViewModel<CharacterFullUI>(canGoBackCallback, communication, dispatchers) {
 
     private val atFinish = {
         progressCommunication.map(Visibility.Gone())
@@ -35,35 +34,28 @@ class CharacterFullViewModel(
     }
 
     init {
-        canGoBack = false
-        progressCommunication.map(Visibility.Visible())
-        handle {
-            interactor.getListOfPlanetsByPage(idOfCharacter, atFinish) {
-                communication.map(it)
-            }
-        }
-    }
-
-
-    fun observeException(lifecycleOwner: LifecycleOwner, observe: Observer<Int>) {
-        errorCommunication.observe(lifecycleOwner, observe)
-    }
-
-    fun addSomethingWentWrong() {
-        communication.map(CharacterFullUI.Exception(listOf(SomethingWentWrongItem(this))))
+        getCharacterFullInfoById()
     }
 
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
+     fun retry() {
+        getCharacterFullInfoById()
+    }
 
-    override fun retry() {
+    private fun getCharacterFullInfoById() {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-            interactor.getListOfPlanetsByPage(idOfCharacter, atFinish) {
+            interactor.getCharacterFullInfo(idOfCharacter, atFinish) {
                 communication.map(it)
             }
         }
     }
+
+    fun observeRetryCommunication(lifeCycleOwner: LifecycleOwner, observer: Observer<Int>) {
+        retryCommunication.observe(lifeCycleOwner,observer)
+    }
+
 }

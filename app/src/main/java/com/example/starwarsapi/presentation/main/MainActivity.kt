@@ -3,13 +3,10 @@ package com.example.starwarsapi.presentation.main
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import com.example.starwarsapi.R
 import com.github.johnnysc.coremvvm.presentation.BackPress
 import com.github.johnnysc.coremvvm.presentation.FragmentFactory
-import com.github.johnnysc.coremvvm.presentation.NavigationScreen
 import com.github.johnnysc.coremvvm.sl.ProvideViewModel
 
 class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
@@ -43,9 +40,5 @@ class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
         clazz: Class<T>,
         owner: ViewModelStoreOwner
     ): T = (application as ProvideViewModel).provideViewModel(clazz, owner)
-
-    fun navigate(id: Int) {
-        viewModel.navigate(id)
-    }
 
 }

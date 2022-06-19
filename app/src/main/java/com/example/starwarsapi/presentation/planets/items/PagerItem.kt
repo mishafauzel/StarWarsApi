@@ -7,15 +7,13 @@ import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
 interface PagerItem : ItemUi {
 
-    data class Base(
+    class Base(
         private val pagerData: PagerData,
-
         private val nextPageCommunication: NextPageCommunication.Update
     ) :
         PagerItem {
-        override fun type(): Int {
-            return 4
-        }
+
+        override fun type() = 4
 
         override fun show(vararg views: MyView) {
             views[0].handleClick() {
@@ -23,33 +21,28 @@ interface PagerItem : ItemUi {
             }
         }
 
-        override fun id(): String {
-            return "${pagerData.hashCode()}"
-        }
+        override fun id() = "${pagerData.hashCode()}"
 
-        override fun content(): String {
-            return "$pagerData"
-        }
+        override fun content() = "$pagerData"
+
     }
+
 
     class ThereIsnoMoreResults : PagerItem {
-        override fun type(): Int {
-            return 6
-        }
 
-        override fun show(vararg views: MyView) {
+        override fun type() = 6
 
-        }
 
-        override fun id(): String {
-            return "therearenomoreresults"
-        }
+        override fun show(vararg views: MyView) {}
 
-        override fun content(): String {
-            return "therearenomoreresults"
-        }
+        override fun id() = "therearenomoreresults"
+
+
+        override fun content() = "therearenomoreresults"
+
 
     }
-
-
 }
+
+
+

@@ -8,15 +8,14 @@ interface PlanetCacheDataSource {
     interface Mutable : Save, Read
 
     class Base(private val planetsDao: PlanetsDao) : Mutable {
-        override fun save(data: List<PlanetCache>) {
 
+        override fun save(data: List<PlanetCache>) {
             planetsDao.save(data.map {
                 it as PlanetCache.Base
-            })//тут ннемного схитрить пришлось
+            })
         }
 
-        override fun read(inputData: Int): PlanetsCache {
-            return PlanetsCache.Base(planetsDao.selectByPage(inputData))
-        }
+        override fun read(inputData: Int) = PlanetsCache.Base(planetsDao.selectByPage(inputData))
+
     }
 }

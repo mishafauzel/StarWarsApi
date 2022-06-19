@@ -1,6 +1,5 @@
 package com.example.starwarsapi.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.starwarsapi.presentation.character.nav_screen.CharacterFullInfoScreen
@@ -21,13 +20,14 @@ class MainViewModel(
     communication,
     dispatchers
 ) {
+
     private val planetNavigationScreen = PlanetNavigationScreen()
     private val characterFullInfoScreen = CharacterFullInfoScreen()
-
 
     init {
         navigate(1)
     }
+
 
     fun observeGlobalNavigationCommunication(owner: LifecycleOwner, observer: Observer<Int>) {
         globalNavigateCommunication.observe(owner, observer)
@@ -43,9 +43,12 @@ class MainViewModel(
 
 
     fun navigate(id: Int) {
-        when (id) {
-            1 -> navigationCommunication.map(planetNavigationScreen)
-            2 -> navigationCommunication.map(characterFullInfoScreen)
-        }
+        navigationCommunication.map(
+            when (id) {
+                1 -> planetNavigationScreen
+                2 -> characterFullInfoScreen
+                else -> throw ThereIsNoNavigationScreenWithSuchId(id)
+            }
+        )
     }
 }

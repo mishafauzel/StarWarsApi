@@ -2,9 +2,9 @@ package com.example.starwarsapi.data.character.cache
 
 import com.example.starwarsapi.data.planets.cache.characters.CharacterCache
 import com.example.starwarsapi.data.planets.cache.characters.CharacterDao
-import com.example.starwarsapi.data.planets.cache.characters.CharactersCache
 
 interface CharacterCacheDataSource {
+
     interface Save:com.github.johnnysc.coremvvm.core.Save<CharacterCache>
 
     interface Read:com.example.starwarsapi.core.Read<Int, CharacterCache>

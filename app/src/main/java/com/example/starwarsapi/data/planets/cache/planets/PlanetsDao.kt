@@ -1,9 +1,13 @@
 package com.example.starwarsapi.data.planets.cache.planets
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 @Dao
 interface PlanetsDao {
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun save(listOfPlanets: List<PlanetCache.Base>)
 

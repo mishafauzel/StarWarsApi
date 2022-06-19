@@ -6,6 +6,7 @@ import com.github.johnnysc.coremvvm.presentation.ShowStrategy
 
 class MyShowStrategy {
     object REPLACE_WITH_ADD_TO_BACKSTACK : ShowStrategy() {
+
         override fun show(
             id: String,
             clasz: Class<out BaseFragment<*>>,

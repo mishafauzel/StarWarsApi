@@ -6,6 +6,7 @@ import com.github.johnnysc.coremvvm.presentation.adapter.GenericViewHolder
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 class CharacterFullInfoViewHolder(view: View) : GenericViewHolder<ItemUi>(view) {
+
     override fun bind(item: ItemUi) {
         with(itemView)
         {

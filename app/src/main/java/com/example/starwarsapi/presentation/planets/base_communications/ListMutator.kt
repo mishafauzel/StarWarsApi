@@ -1,23 +1,20 @@
 package com.example.starwarsapi.presentation.planets.base_communications
 
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.starwarsapi.presentation.LiveDataTransformator
+import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.example.starwarsapi.presentation.planets.items.CharacterItem
+import com.example.starwarsapi.presentation.planets.items.PagerItem
 import com.example.starwarsapi.presentation.planets.items.PlanetItem
 import com.example.starwarsapi.presentation.planets.items.SomethingWentWrongItem
-import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
-import com.example.starwarsapi.presentation.planets.items.PagerItem
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
-import kotlin.math.log
 
 
 class ListMutator(
-
     private val mapperPlanUiToList: PlanetsUi.Mapper<List<ItemUi>>,
+) : LiveDataTransformator<PlanetsUi, PlanetsUi>() {
 
-    ) : LiveDataTransformator<PlanetsUi, PlanetsUi>() {
     private val totalList: MutableList<ItemUi> = mutableListOf()
     private val listOfClosedPlanetsID: MutableList<Int> = mutableListOf()
 
@@ -39,7 +36,7 @@ class ListMutator(
         outputLiveData.value = PlanetsUi.Base(result)
     }
 
-    fun filterTotalList(): List<ItemUi> {
+    private fun filterTotalList(): List<ItemUi> {
         val result = mutableListOf<ItemUi>()
         var isClosed = false
         for (item in totalList) {
@@ -62,7 +59,7 @@ class ListMutator(
         return result.toList()
     }
 
-    fun filterSomeWentWrongAndPagersItems(list: MutableList<ItemUi>): MutableList<ItemUi> {
+    private fun filterSomeWentWrongAndPagersItems(list: MutableList<ItemUi>): MutableList<ItemUi> {
         val deletingList = list.filter { itemUi ->
             itemUi is SomethingWentWrongItem || itemUi is PagerItem
 
@@ -74,7 +71,6 @@ class ListMutator(
     fun observe(owner: LifecycleOwner, observer: Observer<PlanetsUi>) {
         observeOutput(owner, observer)
     }
-
 
 }
 

@@ -8,13 +8,16 @@ interface CharactersCacheDataSource {
     interface Mutable : Save, Read
 
     class Base(private val characterDao: CharacterDao) : Mutable {
+
         override fun save(data: List<CharacterCache>) {
             characterDao.insertListOfCharacters(data.map { it as CharacterCache.Base })
         }
 
-        override fun read(inputData: Int): CharactersCache {
-            return CharactersCache.Base(characterDao.selectCharByPlanetId(inputData))
-        }
+        override fun read(inputData: Int) = CharactersCache.Base(characterDao.selectCharByPlanetId(inputData))
+
     }
+
+
+
 
 }

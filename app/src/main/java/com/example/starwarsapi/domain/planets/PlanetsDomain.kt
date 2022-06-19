@@ -1,25 +1,28 @@
 package com.example.starwarsapi.domain.planets
 
-import com.example.starwarsapi.presentation.planets.basedata.PagerData
 import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 interface PlanetsDomain {
+
     suspend fun <T> map(mapper: Mapper<T>): T
+
     data class Base(
         private val pagerDomain: PagerDomain,
         private val planetDomain: List<PlanetDomain>
     ) :
         PlanetsDomain {
-        override suspend fun <T> map(mapper: Mapper<T>): T {
-            return mapper.map(pagerDomain, planetDomain)
-        }
+        override suspend fun <T> map(mapper: Mapper<T>): T = mapper.map(pagerDomain, planetDomain)
+
     }
 
     interface Mapper<T> {
+
         suspend fun map(pagerDomain: PagerDomain, planetDomain: List<PlanetDomain>): T
+
         class BaseToWithResidence(private val planetToPlanetWithResidence: PlanetDomain.Mapper<PlanetDomain>) :
             Mapper<PlanetsDomain> {
+
             override suspend fun map(
                 pagerDomain: PagerDomain,
                 planetDomain: List<PlanetDomain>
@@ -31,21 +34,11 @@ interface PlanetsDomain {
             }
         }
 
-        class BaseToPagerData(private val pagerDomainMapper: PagerDomain.Mapper<PagerData>) :
-            Mapper<PagerData> {
-            override suspend fun map(
-                pagerDomain: PagerDomain,
-                planetDomain: List<PlanetDomain>
-            ): PagerData {
-                return pagerDomain.map(pagerDomainMapper)
-            }
-        }
-
         class BaseToUI(
             private val planetToUI: PlanetDomain.Mapper<List<ItemUi>>,
             private val pagerToUI: PagerDomain.Mapper.Base
-        ) :
-            Mapper<PlanetsUi> {
+        ) : Mapper<PlanetsUi> {
+
             override suspend fun map(
                 pagerDomain: PagerDomain,
                 planetsDomain: List<PlanetDomain>
@@ -53,9 +46,7 @@ interface PlanetsDomain {
                 val listOfItemUI = mutableListOf<ItemUi>()
                 planetsDomain.forEach { planetDomain ->
                     listOfItemUI.addAll(planetDomain.map(planetToUI))
-
                 }
-
                 val pagerUi = pagerDomain.map(pagerToUI)
                 listOfItemUI.add(pagerUi)
                 return PlanetsUi.Base(listOfItemUI)

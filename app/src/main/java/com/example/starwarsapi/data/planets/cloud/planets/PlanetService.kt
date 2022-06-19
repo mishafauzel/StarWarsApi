@@ -7,4 +7,5 @@ interface PlanetService {
 
     @GET("planets/")
     suspend fun getPlanetsByPage(@Query("page") pageNumber: Int): PlanetsCloud.Base
+
 }

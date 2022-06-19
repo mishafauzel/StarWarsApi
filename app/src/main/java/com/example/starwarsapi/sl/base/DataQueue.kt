@@ -1,7 +1,5 @@
 package com.example.starwarsapi.sl.main
 
-import android.util.Log
-import java.lang.NullPointerException
 import java.util.*
 
 
@@ -17,7 +15,7 @@ interface DataQueue {
     interface Mutable<T> : Update<T>, Read<T>
 
     class Base : Mutable<Any> {
-        val dataQueue: Queue<Any> = LinkedList()
+        private val dataQueue: Queue<Any> = LinkedList()
         override fun update(data: Any) {
             dataQueue.offer(data)
         }
