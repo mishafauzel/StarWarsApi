@@ -38,6 +38,7 @@ interface UrlIdMapper {
 
     interface StringConverter<out> {
         val emptyResult:out
+
         fun convert(input: String): out
 
         class Base() : StringConverter<Int> {
