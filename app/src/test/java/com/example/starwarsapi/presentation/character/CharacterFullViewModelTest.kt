@@ -30,9 +30,7 @@ import kotlin.coroutines.CoroutineContext
 class CharacterFullViewModelTest {
 
     @get:Rule var rule: TestRule = InstantTaskExecutorRule()
-
     @Test
-
     fun `test get full info about character with internet, and no data in database`()= runTest()  {
         val characterCacheDataSource =
             CharacterCacheDataSourceTest(CharacterCache.Mapper.CharacterToIdMapper())
