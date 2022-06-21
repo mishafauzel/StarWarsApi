@@ -29,12 +29,13 @@ import kotlin.coroutines.CoroutineContext
 
 class CharacterFullViewModelTest {
 
-    @get:Rule var rule: TestRule = InstantTaskExecutorRule()
+    @get:Rule
+    var rule: TestRule = InstantTaskExecutorRule()
     @Test
-    fun `test get full info about character with internet, and no data in database`()= runTest()  {
+    fun `test get full info about character with internet, and no data in database`() = runTest() {
         val characterCacheDataSource =
             CharacterCacheDataSourceTest(CharacterCache.Mapper.CharacterToIdMapper())
-        characterCacheDataSource.save(CharacterCache.Base(1,1,"1","1"))
+        characterCacheDataSource.save(CharacterCache.Base(1, 1, "1", "1"))
         val characterCloud = CharacterCloudDataSourceTest(HandleDomainException(), true)
         val charactersRepository = CharacterFullIInfoRepository.Base(
             characterCacheDataSource,
@@ -42,9 +43,9 @@ class CharacterFullViewModelTest {
             characterCloud,
             CharacterFullInfoCloud.Mapper.BaseToCharacterCache(UrlIdMapper.IdConverter())
         )
-        val standartTestDispatcher= StandardTestDispatcher()
+        val standartTestDispatcher = StandardTestDispatcher()
         kotlinx.coroutines.Dispatchers.setMain(standartTestDispatcher)
-        val testDispatcher=TestDispatcher(this.coroutineContext)
+        val testDispatcher = TestDispatcher(this.coroutineContext)
         val retryCommunication = RetryCommunication.Base()
         val testCommunication = TestCommunication()
         val characterInteractor = CharacterInteractor.Base(
@@ -62,6 +63,23 @@ class CharacterFullViewModelTest {
             1
         )
         advanceUntilIdle()
-        assert(testCommunication.checkValue(CharacterFullUI.Base(listOf(CharacterFullInfoItem("1","1",1,"1","1","1","1","1")))))
+        assert(
+            testCommunication.checkValue(
+                CharacterFullUI.Base(
+                    listOf(
+                        CharacterFullInfoItem(
+                            "1",
+                            "1",
+                            1,
+                            "1",
+                            "1",
+                            "1",
+                            "1",
+                            "1"
+                        )
+                    )
+                )
+            )
+        )
     }
 }
