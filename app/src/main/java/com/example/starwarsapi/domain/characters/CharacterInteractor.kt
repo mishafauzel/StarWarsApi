@@ -1,10 +1,12 @@
 package com.example.starwarsapi.domain.characters
 
 import com.example.starwarsapi.data.character.CharacterFullIInfoRepository
+
 import com.example.starwarsapi.domain.DomainException
 import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
 import com.github.johnnysc.coremvvm.core.Dispatchers
 
+private const val TAG = "CharacterInteractor"
 interface CharacterInteractor {
 
     suspend fun getCharacterFullInfo(
@@ -23,6 +25,7 @@ interface CharacterInteractor {
             atFinish: () -> Unit,
             successful: (CharacterFullUI) -> Unit
         ) {
+            println("$TAG, ${Thread.currentThread()}")
             try {
                 val result = characterFullIInfoRepository.getFullInfoAboutCharacter(id)
                 dispatchers.changeToUI { successful.invoke(result) }
