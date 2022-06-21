@@ -15,6 +15,7 @@ class MainViewModel(
     private val globalNavigateCommunication: GlobalNavigateCommunication.Observe,
     dispatchers: Dispatchers,
     communication: GlobalErrorCommunication.Mutable
+
 ) : BackPress.Activity.ViewModel<String>(
     canGoBack,
     communication,

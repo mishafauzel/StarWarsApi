@@ -1,11 +1,12 @@
 package com.example.starwarsapi.data.character
 
+import android.util.Log
 import com.example.starwarsapi.data.character.cache.CharacterCacheDataSource
 import com.example.starwarsapi.data.character.cloud.CharacterFullInfoCloud
 import com.example.starwarsapi.data.character.cloud.CharacterFullInfoCloudDataSource
 import com.example.starwarsapi.data.planets.cache.characters.CharacterCache
 import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
-
+private const val TAG = "CharacterFullIInfoRepos"
 interface CharacterFullIInfoRepository {
 
     suspend fun getFullInfoAboutCharacter(id: Int): CharacterFullUI
@@ -18,6 +19,7 @@ interface CharacterFullIInfoRepository {
     ) : CharacterFullIInfoRepository {
 
         override suspend fun getFullInfoAboutCharacter(id: Int): CharacterFullUI {
+
             val character = characterCacheDataSource.read(id)
             return if (character.hasExtraData()) {
                 character.map(characterCacheToCharacterFullUIMapper)

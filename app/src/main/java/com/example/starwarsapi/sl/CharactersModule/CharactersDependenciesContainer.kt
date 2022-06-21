@@ -9,7 +9,7 @@ import com.github.johnnysc.coremvvm.presentation.ProgressCommunication
 import com.github.johnnysc.coremvvm.sl.CoreModule
 import com.github.johnnysc.coremvvm.sl.DependencyContainer
 
-class CharactersDependensiesContainer(
+class CharactersDependenciesContainer(
     private val dependencyContainer: DependencyContainer,
     coreModule: CoreModule,
     provideServices: ProvideServices,

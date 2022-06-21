@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.example.starwarsapi.sl.CharactersModule.CharactersDependensiesContainer
+import com.example.starwarsapi.sl.CharactersModule.CharactersDependenciesContainer
 import com.example.starwarsapi.sl.PlanetsModule.PlanetsDependensiesContainer
 import com.example.starwarsapi.sl.main.MainDependencyContainer
 import com.github.johnnysc.coremvvm.sl.CoreModule
@@ -35,7 +35,7 @@ class App : Application(), ProvideViewModel {
             )
 
         viewModelsFactory = ViewModelsFactory(
-            CharactersDependensiesContainer(
+            CharactersDependenciesContainer(
                 PlanetsDependensiesContainer(
                     main, coreModule, mainNavigationSource, mainDataQueueSource,
                     manageResouce, provideServices, progressComunication
