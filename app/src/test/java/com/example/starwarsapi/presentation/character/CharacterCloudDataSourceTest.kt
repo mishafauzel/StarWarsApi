@@ -1,12 +1,7 @@
 package com.example.starwarsapi.presentation.character
 
-import android.util.Log
 import com.example.starwarsapi.data.character.cloud.CharacterFullInfoCloud
 import com.example.starwarsapi.data.character.cloud.CharacterFullInfoCloudDataSource
-import com.example.starwarsapi.data.planets.cloud.characters.CharacterCloud
-import com.example.starwarsapi.data.planets.cloud.characters.CharacterCloudDataSource
-
-import com.example.starwarsapi.data.planets.cloud.characters.CharactersCloud
 import com.github.johnnysc.coremvvm.data.CloudDataSource
 import com.github.johnnysc.coremvvm.data.HandleError
 import java.net.UnknownHostException
