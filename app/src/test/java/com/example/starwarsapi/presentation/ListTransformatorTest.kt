@@ -1,7 +1,5 @@
 package com.example.starwarsapi.presentation
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.example.starwarsapi.presentation.planets.items.CharacterItem
 import com.example.starwarsapi.presentation.planets.items.PagerItem
@@ -66,13 +64,12 @@ class ListTransformatorTest(
         return list
     }
 
-  fun value():PlanetsUi
-  {
-      val value=outputLiveData.value
-      if(value==null)
-          return PlanetsUi.Base(emptyList())
-      else
-          return value
-  }
+    fun value(): PlanetsUi {
+        val value = outputLiveData.value
+        if (value == null)
+            return PlanetsUi.Base(emptyList())
+        else
+            return value
+    }
 
 }
