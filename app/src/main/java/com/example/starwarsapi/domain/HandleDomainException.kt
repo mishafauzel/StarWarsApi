@@ -1,6 +1,5 @@
 package com.example.starwarsapi.domain
 
-import android.util.Log
 import com.github.johnnysc.coremvvm.data.HandleError
 import java.net.UnknownHostException
 

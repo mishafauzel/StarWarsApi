@@ -17,4 +17,5 @@
     <string name="there_is_no_data_anymore">There is no data anymore</string>
     <string name="there_is_no_connection">There Is no connection</string>
     <string name="service_unavailable">Service unavalable</string>
+    <string name="UnknownException">Unknown exception</string>
 </resources>

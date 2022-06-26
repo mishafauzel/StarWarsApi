@@ -1,45 +1,32 @@
 package com.example.starwarsapi.domain.characters
 
 import com.example.starwarsapi.data.character.CharacterFullIInfoRepository
-
-import com.example.starwarsapi.domain.DomainException
 import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
 import com.github.johnnysc.coremvvm.core.Dispatchers
+import com.github.johnnysc.coremvvm.data.HandleError
+import com.github.johnnysc.coremvvm.domain.Interactor
 
-private const val TAG = "CharacterInteractor"
+
 interface CharacterInteractor {
 
     suspend fun getCharacterFullInfo(
-        id: Int, atFinish: () -> Unit,
+        atFinish: () -> Unit,
         successful: (CharacterFullUI) -> Unit
     )
 
     class Base(
         private val characterFullIInfoRepository: CharacterFullIInfoRepository,
-        private val dispatchers: Dispatchers,
-        private val mapperFactoryDomainExceptionMapperToListOfItemsUiMapper: DomainException.Mapper<CharacterFullUI>
-    ) : CharacterInteractor {
+        private val idOfCharacter:Int,
+        dispatchers: Dispatchers,
+        errorCommunication: HandleError
+    ) : CharacterInteractor,Interactor.Abstract(dispatchers, errorCommunication) {
 
         override suspend fun getCharacterFullInfo(
-            id: Int,
             atFinish: () -> Unit,
             successful: (CharacterFullUI) -> Unit
-        ) {
-            println("$TAG, ${Thread.currentThread()}")
-            try {
-                val result = characterFullIInfoRepository.getFullInfoAboutCharacter(id)
-                dispatchers.changeToUI { successful.invoke(result) }
-            } catch (domainEx: DomainException.AbstractDomainException) {
-                dispatchers.changeToUI {
-                    successful.invoke(
-                        domainEx.map(
-                            mapperFactoryDomainExceptionMapperToListOfItemsUiMapper
-                        )
-                    )
-                }
-            } finally {
-                dispatchers.changeToUI { atFinish.invoke() }
-            }
+        )=handle(atFinish=atFinish, successful = successful) {
+                return@handle characterFullIInfoRepository.getFullInfoAboutCharacter(idOfCharacter)
+
         }
 
     }

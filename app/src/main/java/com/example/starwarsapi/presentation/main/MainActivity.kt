@@ -20,9 +20,6 @@ class MainActivity : BackPress.Activity<MainViewModel>(), ProvideViewModel {
         viewModel.observeNavigation(this) {
             fragmentFactory.fragment(navigationScreen = it)
         }
-        viewModel.observeGlobalNavigationCommunication(this) {
-            viewModel.navigate(it)
-        }
         val progress = findViewById<View>(R.id.progressLayout)
         viewModel.observeProgress(this) {
             it.apply(progress)

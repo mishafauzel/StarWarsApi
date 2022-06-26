@@ -27,8 +27,6 @@ class CharacterFullFragment : BackPress.Fragment<CharacterFullUI, CharacterFullV
             characterFullUI.map(adapter)
         }
 
-        viewModel.observeRetryCommunication(this) {
-            viewModel.retry()
-        }
+
     }
 }

@@ -30,6 +30,7 @@ class BaseCharacterRepository(
             } else {
                 val listOfUrl = cache.map(charactersCacheToListUrlMapper)
                 val mapper = charactersCloudMapperFac.create(planetId)
+                println("ListOfUrls $listOfUrl")
                 val charactersCloud = characterService.getCharactersById(listOfUrl)
                 val newCache = charactersCloud.map(mapper)
                 charactersCacheDataSource.save(newCache.map(charactersCacheToListMapper))

@@ -10,17 +10,15 @@ import kotlinx.coroutines.sync.Mutex
 
 class TestCommunication :  CharacterFullCommunication {
     private lateinit var characterFullUI: CharacterFullUI
-    private lateinit var expected:CharacterFullUI
 
-    fun setExpected(characterFullUI: CharacterFullUI)
-    {
-        expected=characterFullUI
-    }
+
+
 
     fun checkValue(characterFullUI: CharacterFullUI.Base): Boolean {
         println(Thread.currentThread())
         println("something")
         println("live data ${this.characterFullUI}")
+        println("expected $characterFullUI")
         return this.characterFullUI == characterFullUI
     }
 

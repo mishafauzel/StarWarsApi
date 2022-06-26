@@ -2,7 +2,9 @@ package com.example.starwarsapi.domain.planets
 
 import com.example.starwarsapi.domain.planets.planets_domain_mappers.PlanetDomainToDomainWithResidence
 import com.example.starwarsapi.domain.planets.planets_domain_mappers.PlanetDomainToItemUI
+import com.example.starwarsapi.presentation.LiveDataTransformator
 import com.example.starwarsapi.presentation.planets.base_communications.ListMutator
+import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.example.starwarsapi.presentation.planets.items.CharacterItem
 
 interface PlanetDomain {
@@ -37,7 +39,7 @@ interface PlanetDomain {
 
         class BaseToUI(
             charMapper: CharacterDomain.Mapper<CharacterItem>,
-            listMutator: ListMutator
+            listMutator: LiveDataTransformator<PlanetsUi, PlanetsUi>
         ) : PlanetDomainToItemUI(charMapper, listMutator)
 
 

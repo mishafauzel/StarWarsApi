@@ -1,15 +1,13 @@
 package com.example.starwarsapi.presentation.planets.items
 
-import com.example.starwarsapi.presentation.planets.base_communications.NextPageCommunication
-import com.example.starwarsapi.presentation.planets.basedata.PagerData
+import com.example.starwarsapi.presentation.GetInfoCommunication
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
 interface PagerItem : ItemUi {
 
     class Base(
-        private val pagerData: PagerData,
-        private val nextPageCommunication: NextPageCommunication.Update
+        private val getInfoCommunication: GetInfoCommunication
     ) :
         PagerItem {
 
@@ -17,13 +15,13 @@ interface PagerItem : ItemUi {
 
         override fun show(vararg views: MyView) {
             views[0].handleClick() {
-                nextPageCommunication.map(pagerData)
+                getInfoCommunication.getNextPage()
             }
         }
 
-        override fun id() = "${pagerData.hashCode()}"
+        override fun id() = "-1"
 
-        override fun content() = "$pagerData"
+        override fun content() = id()
 
     }
 
@@ -38,7 +36,7 @@ interface PagerItem : ItemUi {
         override fun id() = "therearenomoreresults"
 
 
-        override fun content() = "therearenomoreresults"
+        override fun content() = id()
 
 
     }

@@ -3,24 +3,21 @@ package com.example.starwarsapi.sl.PlanetsModule
 import com.example.starwarsapi.data.planets.BaseCharacterRepository
 import com.example.starwarsapi.data.planets.BasePlanetsRepository
 import com.example.starwarsapi.data.planets.UrlIdMapper
-import com.example.starwarsapi.data.planets.cache.AbstractDatabase
 import com.example.starwarsapi.data.planets.cache.characters.CharacterCache
 import com.example.starwarsapi.data.planets.cache.characters.CharactersCache
 import com.example.starwarsapi.data.planets.cache.characters.CharactersCacheDataSource
 import com.example.starwarsapi.data.planets.cache.planets.PlanetCache
 import com.example.starwarsapi.data.planets.cache.planets.PlanetCacheDataSource
 import com.example.starwarsapi.data.planets.cache.planets.PlanetsCache
-import com.example.starwarsapi.data.planets.cloud.ProvideServices
 import com.example.starwarsapi.data.planets.cloud.characters.CharacterCloud
 import com.example.starwarsapi.data.planets.cloud.characters.CharacterCloudDataSource
 import com.example.starwarsapi.data.planets.cloud.characters.CharactersCloud
 import com.example.starwarsapi.data.planets.cloud.planets.PlanetCloud
 import com.example.starwarsapi.data.planets.cloud.planets.PlanetsCloud
 import com.example.starwarsapi.data.planets.cloud.planets.PlanetsCloudDataSource
-import com.example.starwarsapi.domain.HandleDomainException
 import com.example.starwarsapi.domain.planets.CharacterRepository
 import com.example.starwarsapi.domain.planets.PlanetsRepository
-import com.github.johnnysc.coremvvm.sl.CoreModule
+import com.example.starwarsapi.sl.DataSourceProvider
 
 interface DataDependenciesProvider {
 
@@ -28,17 +25,22 @@ interface DataDependenciesProvider {
 
     fun provideCharacterRepository(): CharacterRepository
 
-    class Base(coreModule: CoreModule, private val provideServices: ProvideServices) :
+    class Base(
+        private val planetsLocalDataSourceProvider: DataSourceProvider<PlanetCacheDataSource.Mutable>,
+        private val planetsRemoteDataSourceProvider: DataSourceProvider<PlanetsCloudDataSource>,
+        private val characterLocalDataSourceProvider: DataSourceProvider<CharactersCacheDataSource.Mutable>,
+        private val characterRemoteDataSourceProvider: DataSourceProvider<CharacterCloudDataSource>
+    ) :
         DataDependenciesProvider {
 
-        private val appDatabase = coreModule.provideRoomDatabase(AbstractDatabase::class.java)
-        private val handleException = HandleDomainException()
+
+
 
         override fun providePlanetRepository(): PlanetsRepository {
-            val planetService = provideServices.providePlanetsService()
+
             return BasePlanetsRepository(
-                PlanetCacheDataSource.Base(appDatabase.providePlanetsDao()),
-                PlanetsCloudDataSource.Base(planetService, handleException),
+                planetsLocalDataSourceProvider.provideDataSource(),
+                planetsRemoteDataSourceProvider.provideDataSource(),
                 PlanetsCloud.Mapper.Factory.Base(
                     PlanetCloud.Mapper.Factory.Base(
                         UrlIdMapper.PageConverter(),
@@ -55,15 +57,15 @@ interface DataDependenciesProvider {
                         UrlIdMapper.IdConverter()
                     )
                 ),
-                CharactersCacheDataSource.Base(appDatabase.provideCharactersDao())
+                characterLocalDataSourceProvider.provideDataSource()
             )
         }
 
         override fun provideCharacterRepository(): CharacterRepository {
-            val characterService = provideServices.provideCharacterService()
+
             return BaseCharacterRepository(
-                CharactersCacheDataSource.Base(appDatabase.provideCharactersDao()),
-                CharacterCloudDataSource.Base(characterService, handleException),
+                characterLocalDataSourceProvider.provideDataSource(),
+                characterRemoteDataSourceProvider.provideDataSource(),
                 CharactersCloud.Mapper.Factory.Base(CharacterCloud.Mapper.Factory.Base(UrlIdMapper.IdConverter())),
                 CharactersCache.Mapper.BaseToList(),
                 CharactersCache.Mapper.BaseToListCharactersDomain(CharacterCache.Mapper.BaseToListOfCharacterDomain()),

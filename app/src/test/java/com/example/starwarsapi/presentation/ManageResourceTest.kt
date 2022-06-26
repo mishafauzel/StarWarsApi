@@ -1,4 +1,4 @@
-package com.example.starwarsapi.presentation.character
+package com.example.starwarsapi.presentation
 
 import com.github.johnnysc.coremvvm.core.ManageResources
 

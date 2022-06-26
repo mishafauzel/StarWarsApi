@@ -1,10 +1,8 @@
 package com.example.starwarsapi.presentation.character
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import com.example.starwarsapi.domain.characters.CharacterInteractor
+import com.example.starwarsapi.presentation.GetInfoCommunication
 import com.example.starwarsapi.presentation.character.base_communications.CharacterFullCommunication
-import com.example.starwarsapi.presentation.character.base_communications.RetryCommunication
 import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.BackPress
@@ -16,10 +14,9 @@ class CharacterFullViewModel(
     canGoBackCallback: CanGoBack.Callback,
     private val interactor: CharacterInteractor,
     private val progressCommunication: ProgressCommunication.Update,
-    private val retryCommunication: RetryCommunication.Observe,
     communication: CharacterFullCommunication,
     dispatchers: Dispatchers,
-    private val idOfCharacter: Int
+    getInfoCommunication: GetInfoCommunication
 ) : BackPress.ViewModel<CharacterFullUI>(canGoBackCallback, communication, dispatchers) {
 
     private val atFinish = {
@@ -32,28 +29,23 @@ class CharacterFullViewModel(
     }
 
     init {
+        getInfoCommunication.setNextPageFun { fetch() }
         fetch()
     }
 
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
-    fun retry() {
-        fetch()
-    }
 
     private fun fetch() {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
-            interactor.getCharacterFullInfo(idOfCharacter, atFinish) {
+            interactor.getCharacterFullInfo(atFinish) {
                 communication.map(it)
             }
         }
     }
 
-    fun observeRetryCommunication(lifeCycleOwner: LifecycleOwner, observer: Observer<Int>) {
-        retryCommunication.observe(lifeCycleOwner, observer)
-    }
 
 }

@@ -1,12 +1,13 @@
 package com.example.starwarsapi.sl.base
 
-import com.example.starwarsapi.presentation.main.GlobalNavigateCommunication
+import com.github.johnnysc.coremvvm.presentation.NavigationCommunication
+
 
 class MainNavigationSource {
 
-    private val globalNavigationCommunication = GlobalNavigateCommunication.Base()
+    private val globalNavigationCommunication =NavigationCommunication.Base()
 
-    fun provideNavigationComunication(): GlobalNavigateCommunication.Base =
+    fun provideNavigationComunication(): NavigationCommunication.Base =
         globalNavigationCommunication
 
 }

@@ -9,16 +9,15 @@ import com.github.johnnysc.coremvvm.sl.Module
 
 class MainModule(
     private val coreModule: CoreModule,
-    private val mainNavigationSource: MainNavigationSource,
+    private val navigationCommunication: NavigationCommunication.Base,
     private val progressCommunication: ProgressCommunication.Base
 ) : Module<MainViewModel> {
 
     override fun viewModel() =
         MainViewModel(
             coreModule.provideCanGoBack(),
-            NavigationCommunication.Base(),
+            navigationCommunication,
             progressCommunication,
-            mainNavigationSource.provideNavigationComunication(),
             coreModule.dispatchers(),
             coreModule.provideGlobalErrorCommunication(),
         )

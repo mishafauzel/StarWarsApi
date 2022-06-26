@@ -2,13 +2,12 @@ package com.example.starwarsapi.presentation.planets
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.starwarsapi.core.Retry
 import com.example.starwarsapi.domain.planets.PlanetsInteractor
 import com.example.starwarsapi.presentation.planets.base_communications.ListMutator
-import com.example.starwarsapi.presentation.planets.base_communications.NextPageCommunication
+import com.example.starwarsapi.presentation.GetInfoCommunication
+import com.example.starwarsapi.presentation.LiveDataTransformator
 import com.example.starwarsapi.presentation.planets.base_communications.PlanetsCommunication
-import com.example.starwarsapi.presentation.planets.base_communications.RetryCommunication
-import com.example.starwarsapi.presentation.planets.basedata.PagerData
+
 import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import com.github.johnnysc.coremvvm.presentation.BackPress
@@ -21,14 +20,13 @@ class PlanetsViewModel(
     canGoBackCallback: CanGoBack.Callback,
     private val interactor: PlanetsInteractor,
     private val progressCommunication: ProgressCommunication.Update,
-    private val nextPageCommunication: NextPageCommunication.Base,
-    private val retryCommunication: RetryCommunication.Observe,
-    private val listMutator: ListMutator,
+    private val listMutator: LiveDataTransformator<PlanetsUi, PlanetsUi>,
     communication: PlanetsCommunication,
-    dispatchers: Dispatchers
-) : BackPress.ViewModel<PlanetsUi>(canGoBackCallback, communication, dispatchers), Retry {
+    dispatchers: Dispatchers,
+    getInfoCommunication: GetInfoCommunication
+) : BackPress.ViewModel<PlanetsUi>(canGoBackCallback, communication, dispatchers){
 
-    private var firstPagerData: PagerData = PagerData.Base(0, 1)
+
     private var canGoBack = true
     private val atFinish = {
         progressCommunication.map(Visibility.Gone())
@@ -41,45 +39,27 @@ class PlanetsViewModel(
     init {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
-        nextPageCommunication.map(firstPagerData)
+        getInfoCommunication.setNextPageFun { getInfoNextPage() }
         listMutator.setTransformable(communication)
+        getInfoNextPage()
     }
 
     override fun updateCallbacks() =
         canGoBackCallback.updateCallback(canGoBackCallbackInner)
 
-    fun observeNextPageCommunication(
-        lifecycleOwner: LifecycleOwner,
-        observer: Observer<PagerData>
-    ) {
-        nextPageCommunication.observe(lifecycleOwner, observer)
-    }
-
-    fun observeRetryCommunication(
-        lifecycleOwner: LifecycleOwner,
-        observer: Observer<PagerData>
-    ) {
-        retryCommunication.observe(lifecycleOwner, observer)
-    }
-
-    fun getInfoNextPage(pageNumber: PagerData) {
+    fun getInfoNextPage() {
         canGoBack = false
         progressCommunication.map(Visibility.Visible())
         handle {
             interactor.getListOfPlanetsByPage(
-                pageNumber,
                 atFinish = atFinish,
-                successful = { planetsUi ->
-                    communication.map(planetsUi)
+                successful = { result ->
+                    communication.map(result)
                 })
         }
     }
 
-    override fun retry(pagerData: PagerData) {
-        getInfoNextPage(pagerData)
-    }
-
     fun observeListMutator(owner: LifecycleOwner, observer: Observer<PlanetsUi>) {
-        this.listMutator.observe(owner, observer)
+        this.listMutator.observeOutput(owner, observer)
     }
 }

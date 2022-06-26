@@ -3,7 +3,7 @@ package com.example.starwarsapi.data.character.cache
 import com.example.starwarsapi.data.planets.cache.characters.CharacterCache
 import com.example.starwarsapi.data.planets.cache.characters.CharacterDao
 
-interface CharacterCacheDataSource {
+interface CharacterFullInfoCacheDataSource {
 
     interface Save : com.github.johnnysc.coremvvm.core.Save<CharacterCache>
 

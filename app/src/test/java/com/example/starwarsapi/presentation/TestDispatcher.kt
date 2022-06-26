@@ -1,4 +1,4 @@
-package com.example.starwarsapi.presentation.character
+package com.example.starwarsapi.presentation
 
 import com.github.johnnysc.coremvvm.core.Dispatchers
 import kotlinx.coroutines.*
@@ -8,7 +8,6 @@ import kotlin.coroutines.CoroutineContext
 class TestDispatcher(private val context: CoroutineContext):Dispatchers {
 
     override suspend fun changeToUI(block: suspend CoroutineScope.() -> Unit) {
-
         withContext(context,block)
     }
 

@@ -26,4 +26,5 @@ abstract class LiveDataTransformator<from, to>() {
 
     abstract fun transform(from: from): to
 
+    abstract fun changeIdList(id: Int)
 }

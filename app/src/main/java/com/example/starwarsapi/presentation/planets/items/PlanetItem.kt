@@ -1,13 +1,15 @@
 package com.example.starwarsapi.presentation.planets.items
 
+import com.example.starwarsapi.presentation.LiveDataTransformator
 import com.example.starwarsapi.presentation.planets.base_communications.ListMutator
+import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 import com.github.johnnysc.coremvvm.presentation.adapter.MyView
 
 data class PlanetItem(
     private val id: Int,
     private val name: String,
-    private val listMutator: ListMutator
+    private val listMutator: LiveDataTransformator<PlanetsUi, PlanetsUi>
 ) : ItemUi {
 
     override fun type() = 1

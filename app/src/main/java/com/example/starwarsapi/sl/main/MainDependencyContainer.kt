@@ -16,7 +16,7 @@ class MainDependencyContainer(
 
     override fun <T : ViewModel> module(clazz: Class<T>) =
         if (clazz == MainViewModel::class.java) {
-            MainModule(coreModule, mainNavigationSource, progressCommunication)
+            MainModule(coreModule, mainNavigationSource.provideNavigationComunication(), progressCommunication)
         } else
             dependencyContainer.module(clazz)
 

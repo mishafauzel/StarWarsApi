@@ -1,5 +1,6 @@
 package com.example.starwarsapi.domain.planets
 
+import android.graphics.pdf.PdfDocument
 import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
@@ -42,7 +43,7 @@ interface PlanetsDomain {
             override suspend fun map(
                 pagerDomain: PagerDomain,
                 planetsDomain: List<PlanetDomain>
-            ): PlanetsUi {
+            ):PlanetsUi {
                 val listOfItemUI = mutableListOf<ItemUi>()
                 planetsDomain.forEach { planetDomain ->
                     listOfItemUI.addAll(planetDomain.map(planetToUI))
@@ -52,6 +53,15 @@ interface PlanetsDomain {
                 return PlanetsUi.Base(listOfItemUI)
             }
 
+        }
+
+        class BaseToPagerDomain:Mapper<PagerDomain> {
+            override suspend fun map(
+                pagerDomain: PagerDomain,
+                planetDomain: List<PlanetDomain>
+            ): PagerDomain {
+                return pagerDomain
+            }
         }
     }
 }

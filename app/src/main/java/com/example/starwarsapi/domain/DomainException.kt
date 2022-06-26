@@ -1,75 +1,62 @@
 package com.example.starwarsapi.domain
 
-import com.example.starwarsapi.R
-import com.example.starwarsapi.presentation.character.base_data.CharacterFullUI
-import com.example.starwarsapi.presentation.character.items.SomethingWentWrong
-import com.example.starwarsapi.presentation.planets.base_communications.RetryCommunication
-import com.example.starwarsapi.presentation.planets.basedata.PagerData
-import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
+import com.example.starwarsapi.presentation.GetInfoCommunication
+
 import com.example.starwarsapi.presentation.planets.items.SomethingWentWrongItem
 import com.github.johnnysc.coremvvm.core.ManageResources
-import com.example.starwarsapi.presentation.character.base_communications.RetryCommunication as CharacterRetry
+import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
 interface DomainException {
 
     fun <T> map(mapper: Mapper<T>): T
 
-    abstract class AbstractDomainException(protected val idOfMessage: Int) : DomainException,
+    abstract class AbstractDomainException() : DomainException,
         Exception()
 
-    class ThereIsNoConnectionDomain : AbstractDomainException(R.string.there_is_no_connection) {
+    class ThereIsNoConnectionDomain : AbstractDomainException() {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(idOfMessage)
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map()
 
     }
 
-    class ServiceUnavailableException : AbstractDomainException(R.string.service_unavailable) {
+    class ServiceUnavailableException : AbstractDomainException() {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(idOfMessage)
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map()
 
     }
 
     interface Mapper<T> {
 
-        fun map(messageId: Int): T
+        fun map(): T
 
-        class BaseToPlanetsUi(
+        class BaseToItemUI(
+            private val messageId: Int,
             private val manageResources: ManageResources,
-            private val retry: RetryCommunication.Update,
-            private val pagerData: PagerData
-        ) : Mapper<PlanetsUi> {
+            private val getInfoCommunication: GetInfoCommunication
+        ) : Mapper<List<ItemUi>> {
 
-            override fun map(messageId: Int): PlanetsUi {
-                val message = manageResources.string(messageId)
-                return PlanetsUi.Base(listOf(SomethingWentWrongItem(retry, message, pagerData)))
-            }
-
-        }
-
-        class BaseToCharacterUi(
-            private val manageResources: ManageResources,
-            private val retry: CharacterRetry.Update,
-
-            ) : Mapper<CharacterFullUI> {
-
-            override fun map(messageId: Int): CharacterFullUI {
-                val message = manageResources.string(messageId)
-                return CharacterFullUI.Base(listOf(SomethingWentWrong(retry, message)))
+            override fun map(): List<ItemUi> {
+                return listOf(
+                    SomethingWentWrongItem(
+                        manageResources.string(messageId),
+                        getInfoCommunication
+                    )
+                )
             }
         }
-
 
         interface Factory<retData> {
-            fun create(pagerData: PagerData): Mapper<retData>
+            fun create(messageId: Int): Mapper<retData>
 
             class Base(
                 private val manageResources: ManageResources,
-                private val retry: RetryCommunication.Update
-            ) :
-                Factory<PlanetsUi> {
+                private val getInfoCommunication: GetInfoCommunication
 
-                override fun create(pagerData: PagerData) =
-                    BaseToPlanetsUi(manageResources, retry, pagerData)
+            ) :
+                Factory<List<ItemUi>> {
+
+                override fun create(messageId: Int) =
+                    BaseToItemUI(messageId, manageResources, getInfoCommunication)
 
             }
         }

@@ -12,7 +12,7 @@ class MainViewModel(
     canGoBack: CanGoBack,
     private val navigationCommunication: NavigationCommunication.Mutable,
     private val progressCommunication: ProgressCommunication.Mutable,
-    private val globalNavigateCommunication: GlobalNavigateCommunication.Observe,
+
     dispatchers: Dispatchers,
     communication: GlobalErrorCommunication.Mutable
 
@@ -26,12 +26,7 @@ class MainViewModel(
     private val characterFullInfoScreen = CharacterFullInfoScreen()
 
     init {
-        navigate(1)
-    }
-
-
-    fun observeGlobalNavigationCommunication(owner: LifecycleOwner, observer: Observer<Int>) {
-        globalNavigateCommunication.observe(owner, observer)
+        navigationCommunication.map(planetNavigationScreen)
     }
 
     fun observeNavigation(owner: LifecycleOwner, observer: Observer<NavigationScreen>) {
@@ -43,13 +38,5 @@ class MainViewModel(
     }
 
 
-    fun navigate(id: Int) {
-        navigationCommunication.map(
-            when (id) {
-                1 -> planetNavigationScreen
-                2 -> characterFullInfoScreen
-                else -> throw ThereIsNoNavigationScreenWithSuchId(id)
-            }
-        )
-    }
+
 }

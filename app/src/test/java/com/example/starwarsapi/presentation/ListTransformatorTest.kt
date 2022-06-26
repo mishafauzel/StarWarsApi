@@ -1,8 +1,7 @@
-package com.example.starwarsapi.presentation.planets.base_communications
+package com.example.starwarsapi.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.starwarsapi.presentation.LiveDataTransformator
 import com.example.starwarsapi.presentation.planets.basedata.PlanetsUi
 import com.example.starwarsapi.presentation.planets.items.CharacterItem
 import com.example.starwarsapi.presentation.planets.items.PagerItem
@@ -10,8 +9,7 @@ import com.example.starwarsapi.presentation.planets.items.PlanetItem
 import com.example.starwarsapi.presentation.planets.items.SomethingWentWrongItem
 import com.github.johnnysc.coremvvm.presentation.adapter.ItemUi
 
-
-class ListMutator(
+class ListTransformatorTest(
     private val mapperPlanUiToList: PlanetsUi.Mapper<List<ItemUi>>,
 ) : LiveDataTransformator<PlanetsUi, PlanetsUi>() {
 
@@ -68,11 +66,13 @@ class ListMutator(
         return list
     }
 
-
+  fun value():PlanetsUi
+  {
+      val value=outputLiveData.value
+      if(value==null)
+          return PlanetsUi.Base(emptyList())
+      else
+          return value
+  }
 
 }
-
-
-
-
-
